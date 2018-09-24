@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Gumbo\Plugin;
 
 use Gumbo\Plugin\Hooks\AbstractHook;
+use Gumbo\Plugin\Hooks\GutenbergHandler;
 use Gumbo\Plugin\Hooks\PluginFilterHandler;
 use Gumbo\Plugin\Hooks\PostTypeHandler;
 
