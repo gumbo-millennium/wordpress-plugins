@@ -17,4 +17,17 @@ abstract class AbstractHook
      * @return void
      */
     abstract public function bind() : void;
+
+    /**
+     * Debugs a (set of) variable(s), and exists code.
+     *
+     * @param mixed $args
+     * @return void
+     */
+    protected function debug(...$args) : void
+    {
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode([$args]);
+        die();
+    }
 }
