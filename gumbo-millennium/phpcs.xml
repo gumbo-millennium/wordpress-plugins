@@ -1,8 +1,7 @@
 <?xml version="1.0"?>
 <ruleset>
-
-    <!-- Directories -->
     <file>src/</file>
+    <file>plugin.php</file>
 
     <!-- We just use PSR-2 -->
     <rule ref="PSR2" />
