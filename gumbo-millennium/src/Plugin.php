@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace Gumbo\Plugin;
 
-use Gumbo\Plugin\PostTypes\ActivityType;
-use Gumbo\Plugin\PostTypes\PostType;
+use Gumbo\Plugin\Hooks\AbstractHook;
+use Gumbo\Plugin\Hooks\PostTypeHandler;
 
 /**
  * Boots the plugin, which /should/ be loaded as a must-use plugin. This means
@@ -15,27 +15,32 @@ use Gumbo\Plugin\PostTypes\PostType;
  */
 class Plugin
 {
+    protected $hookClasses = [
+        PluginFilterHandler::class,
+        GutenbergHandler::class,
+        PostTypeHandler::class,
+    ];
+
+    /**
+     * Returns the root path to the plugin
+     *
+     * @return string
+     */
+    public static function getPluginPath() : string
+    {
+        return __DIR__;
+    }
+
     /**
      * Launches the plugin, by registering all bindings.
      */
     public function boot() : void
     {
+        // Bind shortcodes
+        $this->bindAssets();
+
         // Bind hooks
         $this->bindHooks();
-
-        // Bind shortcodes
-        $this->bindActions();
-
-        // Bind shortcodes
-        $this->bindShortcodes();
-    }
-
-    /**
-     * Handles WordPress bindings for shortcodes.
-     */
-    protected function bindShortcodes() : void
-    {
-        // TODO
     }
 
     /**
@@ -43,8 +48,12 @@ class Plugin
      */
     protected function bindHooks() : void
     {
-        // Handle registering custom post types
-        add_action('init', \Closure::fromCallable([$this, 'registerPostTypes']));
+        // Dynamically add hooks
+        foreach ($this->hookClasses as $hookClass) {
+            if (is_a($hookClass, AbstractHook::class, true)) {
+                (new $hookClass)->bind();
+            }
+        }
 
         // TODO Add more items, if required
     }
@@ -52,31 +61,9 @@ class Plugin
     /**
      * Handles WordPress bindings for actions.
      */
-    protected function bindActions() : void
+    protected function bindAssets() : void
     {
-        // Add Javascript
-        add_action('admin_enqueue_scripts', function () {
-            $path = plugin_dir_url(__DIR__) . 'dist/gumbo-plugin.js';
-            wp_enqueue_script('gumbo-millennium-fields-script', $path, [], null, true);
-        });
-    }
-
-    /**
-     * Register custom post types, which are used for the activities and files
-     *
-     * @return void
-     */
-    protected function registerPostTypes() : void
-    {
-        // List post types
-        $types = [
-            new ActivityType
-        ];
-
-        foreach ($types as $type) {
-            if ($type instanceof PostType) {
-                $type->registerType();
-            }
-        }
+        $handler = new AssetHandler;
+        $handler->bind();
     }
 }

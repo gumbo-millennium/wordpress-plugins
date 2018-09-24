@@ -5,6 +5,6 @@
  * @license MPL-2.0
  */
 
-import { default as CleaveInit } from './cleave'
+import CleaveInit from './cleave'
 
 CleaveInit()
