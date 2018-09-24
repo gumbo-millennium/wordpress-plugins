@@ -1,5 +1,9 @@
 const mix = require('laravel-mix')
 
+// Configure root path
+mix
+  .setPublicPath('dist/')
+
 // Configure javascript and Scss
 mix
   .js('lib/js/plugin.js', 'dist/gumbo-plugin.js')
