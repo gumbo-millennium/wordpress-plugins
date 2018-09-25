@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 /**
- * Gumbo Millennium plugin for Wordpress
+ * Gumbo Millennium plugin for WordPress
  *
- * Plugin Name:     Gumbo Millennium - Custom Post Types
- * Description:     Activiteit en documenttypes voor WordPress
+ * Plugin Name:     Gumbo Millennium integratie
+ * Description:     WordPress plugin voor integratie met de Gumbo Millennium website.
  * Version:         1.0.0
  * Author:          Digitale Commissie
  * License:         MPL-2.0
