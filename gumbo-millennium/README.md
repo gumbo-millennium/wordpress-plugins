@@ -14,6 +14,36 @@ The stylesheets and scripts are built using Laravel's Mix.
 
 The software is licensed under the [Mozilla Public License v2][link-mpl].
 
+## Developing
+
+To work on the plugin, run the following commands
+
+```
+composer install
+yarn install
+```
+
+Lastly, to automatically build the Javascript and Sass files, run the following command:
+
+```
+yarn start
+```
+
+If you added, renamed or removed PHP files, make sure to update the Composer autoloader!
+
+```
+composer dump-autoload
+```
+
+## Deployment
+
+The files should be auto-deployed by the Continuous Integration, but if you want to build
+your own, you can!
+
+```
+make plugin.zip
+```
+
 <!--
     All the links
 -->
