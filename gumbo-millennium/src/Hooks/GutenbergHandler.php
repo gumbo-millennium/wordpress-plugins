@@ -4,7 +4,7 @@ declare (strict_types = 1);
 namespace Gumbo\Plugin\Hooks;
 
 use Gumbo\Plugin\Gutenberg\Block as GutenbergBlock;
-use Gumbo\Plugin\Gutenberg\SponsorLarge;
+use Gumbo\Plugin\Gutenberg\Sponsor;
 
 /**
  * Loads Gutenberg block types
@@ -20,7 +20,7 @@ class GutenbergHandler extends AbstractHook
      * @var array
      */
     const BLOCK_TYPES = [
-        SponsorLarge::class
+        Sponsor::class,
     ];
 
     /**

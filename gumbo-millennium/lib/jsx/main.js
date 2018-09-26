@@ -5,6 +5,6 @@
  * @license MPL-2.0
  */
 
-import registerSponsorLarge from './sponsor-large'
+import registerSponsor from './sponsor'
 
-registerSponsorLarge()
+registerSponsor()
