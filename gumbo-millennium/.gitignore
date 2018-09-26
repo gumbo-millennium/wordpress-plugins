@@ -89,3 +89,6 @@ typings/
 
 # Ignore CSS and JS output
 dist/
+
+# Also ignore built zip files
+plugin.zip
