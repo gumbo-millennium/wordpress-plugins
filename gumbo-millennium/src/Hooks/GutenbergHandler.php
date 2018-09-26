@@ -32,6 +32,9 @@ class GutenbergHandler extends AbstractHook
     {
         // Add Gutenberg
         add_action('init', [$this, 'init']);
+
+        // Add Gumbo group
+        add_filter('block_categories', [$this, 'registerCategory'], 10, 2);
     }
 
     /**
@@ -51,5 +54,32 @@ class GutenbergHandler extends AbstractHook
                 (new $type)->register();
             }
         }
+    }
+
+    /**
+     * Adds a 'gumbo' category to the Gutenberg categories
+     *
+     * @param array $categories
+     * @param WP_Post $post
+     * @return array
+     */
+    public function registerCategory(array $categories, $post) : array
+    {
+        $supportedTypes = ['post', 'page'];
+        if (!in_array($post->post_type, $supportedTypes)) {
+            return $categories;
+        }
+
+        // Define gumbo category
+        $gumboCategory = [
+            'slug' => 'gumbo',
+            'title' => 'Gumbo Millennium',
+        ];
+
+        // Add gumbo as 3rd item
+        array_splice($categories, 1, 0, [$gumboCategory]);
+
+        // Done :D
+        return $categories;
     }
 }
