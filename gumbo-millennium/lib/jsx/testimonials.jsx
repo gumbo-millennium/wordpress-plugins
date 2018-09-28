@@ -15,7 +15,7 @@ const attributes = {
   },
   author: {
     source: 'text',
-    selector: '.testimonials__author'
+    selector: '.testimonials__author-name'
   },
   company: {
     source: 'text',
