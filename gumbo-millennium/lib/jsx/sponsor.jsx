@@ -5,28 +5,24 @@
  * @license MPL-2.0
  */
 
-const blockName = 'gumbo/sponsor'
-const { registerBlockType, registerBlockStyle } = wp.blocks
+import registerBlock from './gumbo'
+import { ad as icon } from './svg'
 
-const edit = () => {
-  return <p className="sponsor-placeholder">Sponsor advertentie</p>
+const BLOCK_NAME = 'gumbo/sponsor'
+
+const init = () => {
+  registerBlock({
+    name: BLOCK_NAME,
+    title: 'Sponsor',
+    svg: icon,
+
+    supports: {
+      multiple: false
+    },
+
+    edit: () => <p className="sponsor-placeholder">Sponsor advertentie</p>,
+    save: () => null
+  })
 }
-
-const save = () => null
-
-const config = {
-  title: 'Sponsor',
-  icon: 'archive',
-  category: 'gumbo',
-
-  // Disable custom class
-  customClassName: false,
-  className: false,
-
-  edit: edit,
-  save: save
-}
-
-const init = () => registerBlockType(blockName, config)
 
 export default init
