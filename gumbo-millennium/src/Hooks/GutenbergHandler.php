@@ -5,6 +5,8 @@ namespace Gumbo\Plugin\Hooks;
 
 use Gumbo\Plugin\Gutenberg\Block as GutenbergBlock;
 use Gumbo\Plugin\Gutenberg\Sponsor;
+use Gumbo\Plugin\Gutenberg\UniqueSellingPoint;
+use Gumbo\Plugin\Gutenberg\UniqueSellingPoints;
 
 /**
  * Loads Gutenberg block types
@@ -21,6 +23,8 @@ class GutenbergHandler extends AbstractHook
      */
     const BLOCK_TYPES = [
         Sponsor::class,
+        UniqueSellingPoint::class,
+        UniqueSellingPoints::class,
     ];
 
     /**
