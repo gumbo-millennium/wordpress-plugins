@@ -6,11 +6,15 @@
  */
 
 // Import objects
+import filterBlocks from './whitelist'
 import registerUSPGroup from './unique-selling-points'
 import registerUSPItem from './unique-selling-point'
 import registerSponsor from './sponsor'
 import registerCentralIntro from './central-intro'
 import registerTestimonials from './testimonials'
+
+// Filter blocks
+filterBlocks()
 
 // Register the Unique Selling Points
 registerUSPGroup()
