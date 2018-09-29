@@ -34,3 +34,24 @@ mix.webpackConfig({
     ]
   }
 })
+
+// Banner
+mix.webpackConfig(webpack => {
+  const banner = `
+  Gumbo Millennium plugin for WordPress
+
+  Version:         1.0.0
+  Hash:            [hash]
+  License:         MPL-2.0
+  License URI:     https://www.mozilla.org/en-US/MPL/2.0/
+  `
+  return {
+    plugins: [
+      // Banners
+      new webpack.BannerPlugin({
+        test: /\.(js|css)$/,
+        banner: banner
+      })
+    ]
+  }
+})
