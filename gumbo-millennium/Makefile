@@ -1,52 +1,60 @@
 .PHONY: plugin.zip
 
-plugin.zip:
-    # Install dependencies
+plugin.zip: gumbo-millennium.zip
+	cp gumbo-millennium.zip plugin.zip
+
+gumbo-millennium.zip:
+	# Install dependencies
 	composer install \
 		--no-dev \
 		--no-suggest \
 		--no-autoloader \
 		--no-interaction
 
-    # Clean up autoloader
+	# Clean up autoloader
 	composer dump-autoload \
 		--no-dev \
 		--classmap-authoritative \
 		--no-interaction
 
-    # Install / update Yarn
+	# Install / update Yarn
 	yarn install \
 		--non-interactive
 
-    # Build production output
+	# Build production output
 	yarn run production
 
-    # Zip files
+	# Build temporary directory
+	test -d temp || mkdir temp
+
+	# Zip files
 	zip -r \
-		plugin-new.zip \
+		temp/new.zip \
 		dist/ \
 		src/ \
 		vendor/ \
+		LICENSE.md \
 		README.md \
-		LICENSE.md
+		plugin.php
 
-    # Create temporary directory and copy plugin
-	mkdir temp
+	# Copy plugin.php to temporary dir
 	cp plugin.php temp/plugin.php
 
-    # Update version in new plugin file
+	# Update version in temporary plugin copy
 	sed -i -r \
 		"s/^( \* Version:\s+).+$$/\1$(shell git log -n1 --pretty='%h')/" \
 		temp/plugin.php
 
-    # Add plugin file
+	# Add plugin file
 	zip --freshen --junk-paths \
-        plugin-new.zip \
-        temp/plugin.php
+		temp/new.zip \
+		temp/plugin.php
 
-    # Delete temp file and directory (if empty)
+	# Delete temporary file
 	rm temp/plugin.php
-	rmdir --ignore-fail-on-non-empty temp/
 
-    # Move file over old plugin file
-	mv plugin-new.zip plugin.zip
+	# Move file over old plugin file
+	mv temp/new.zip gumbo-millennium.zip
+
+	# Delete temporary directory (if empty)
+	rmdir --ignore-fail-on-non-empty temp/

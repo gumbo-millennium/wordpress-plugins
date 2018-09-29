@@ -44,7 +44,7 @@ script:
   - find lib/ -type f -name '*.jsx' -print | xargs node_modules/.bin/eslint
 
   # Make zipfile
-  - make plugin.zip
+  - make gumbo-millennium.zip
 
 matrix:
   fast_finish: true

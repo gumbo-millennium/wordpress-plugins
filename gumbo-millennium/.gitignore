@@ -90,5 +90,7 @@ typings/
 # Ignore CSS and JS output
 dist/
 
-# Also ignore built zip files
-plugin.zip
+# Also ignore built zip files and intermediaries
+/plugin.zip
+/gumbo-millennium.zip
+/temp/
