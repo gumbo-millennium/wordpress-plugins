@@ -7,6 +7,7 @@ use Gumbo\Plugin\Hooks\AbstractHook;
 use Gumbo\Plugin\Hooks\GutenbergHandler;
 use Gumbo\Plugin\Hooks\PluginFilterHandler;
 use Gumbo\Plugin\Hooks\PostTypeHandler;
+use Gumbo\Plugin\Hooks\LoopbackRestHandler;
 
 /**
  * Boots the plugin, which /should/ be loaded as a must-use plugin. This means
@@ -20,6 +21,7 @@ class Plugin
     protected $hookClasses = [
         PluginFilterHandler::class,
         GutenbergHandler::class,
+        LoopbackRestHandler::class,
         PostTypeHandler::class,
     ];
 
