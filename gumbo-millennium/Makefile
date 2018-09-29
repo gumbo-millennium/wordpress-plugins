@@ -37,7 +37,7 @@ gumbo-millennium.zip:
 		README.md
 
 	# Update version and write to temporary plugin file
-	sed -i -r \
+	sed -r \
 		"s/^( \* Version:\s+).+$$/\1$(shell git log -n1 --pretty='%h')/" \
 		plugin.php > temp/plugin.php
 
