@@ -1,0 +1,52 @@
+sudo: false
+
+language: php
+
+# Run on PHP 7.2 and newer
+php:
+  - 7.2
+  - nightly
+
+# Cache yarn
+cache:
+  yarn: true
+  directories:
+    - $HOME/.composer
+    - vendor/
+
+before_install:
+  # Install NodeJS
+  - nvm install node
+  - npm install -g yarn
+
+install:
+  # Move to Gumbo Millennium plugin
+  - cd "$( git rev-parse --show-toplevel 2>/dev/null)/gumbo-millennium"
+
+  # Download composer assets
+  - composer install --no-progress --no-suggest -an
+
+  # Download Yarn assets using lockfile
+  - yarn install --frozen-lockfile
+
+script:
+  # Move to Gumbo Millennium plugin
+  - cd "$( git rev-parse --show-toplevel 2>/dev/null)/gumbo-millennium"
+
+  # Lint PHP code
+  - vendor/bin/phpcs
+
+  # Lint Sass files
+  - find lib/sass -type f -name '*.scss' -print | xargs node_modules/.bin/stylelint
+
+  # Lint Javascript
+  - find lib/ -type f -name '*.js' -print | xargs node_modules/.bin/eslint
+  - find lib/ -type f -name '*.jsx' -print | xargs node_modules/.bin/eslint
+
+  # Make zipfile
+  - make plugin.zip
+
+matrix:
+  fast_finish: true
+  allow_failures:
+    - php: nightly
