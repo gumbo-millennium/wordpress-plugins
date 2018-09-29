@@ -34,22 +34,18 @@ gumbo-millennium.zip:
 		src/ \
 		vendor/ \
 		LICENSE.md \
-		README.md \
-		plugin.php
+		README.md
 
-	# Copy plugin.php to temporary dir
-	cp plugin.php temp/plugin.php
-
-	# Update version in temporary plugin copy
+	# Update version and write to temporary plugin file
 	sed -i -r \
 		"s/^( \* Version:\s+).+$$/\1$(shell git log -n1 --pretty='%h')/" \
-		temp/plugin.php
+		plugin.php > temp/plugin.php
 
 	# Force the modified time to update
 	touch temp/plugin.php
 
 	# Add plugin file
-	zip -f --junk-paths \
+	zip -u --junk-paths \
 		temp/new.zip \
 		temp/plugin.php
 
