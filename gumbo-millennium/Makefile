@@ -45,8 +45,11 @@ gumbo-millennium.zip:
 		"s/^( \* Version:\s+).+$$/\1$(shell git log -n1 --pretty='%h')/" \
 		temp/plugin.php
 
+	# Force the modified time to update
+	touch temp/plugin.php
+
 	# Add plugin file
-	zip --freshen --junk-paths \
+	zip -f --junk-paths \
 		temp/new.zip \
 		temp/plugin.php
 
