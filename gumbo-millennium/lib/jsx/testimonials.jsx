@@ -101,7 +101,7 @@ const save = function ({ attributes }) {
         <div className="testimonials__author">
           <RichText.Content tagName="span" value={attributes.author} className="testimonials__author-name" />
           <RichText.Content tagName="span" value={attributes.company} className="testimonials__author-company" />
-          </div>
+        </div>
       </div>
     </div>
   </div>

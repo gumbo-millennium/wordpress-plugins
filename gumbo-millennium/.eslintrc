@@ -1,10 +1,21 @@
 {
     "extends": "standard",
+    "plugins": [
+        "react"
+    ],
     "env": {
         "browser": true,
         "es6": true
     },
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        }
+    },
     "globals": {
         "wp": true
+    },
+    "rules": {
+        "react/jsx-uses-vars": 2
     }
 }

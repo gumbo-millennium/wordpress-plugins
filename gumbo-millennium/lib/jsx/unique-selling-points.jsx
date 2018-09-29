@@ -6,12 +6,12 @@
  */
 
 // Import times
-import { times } from 'lodash'
 import registerBlock from './gumbo'
 import { trophy as icon } from './svg'
 
 const BLOCK_NAME = 'gumbo/unique-selling-points'
 const { RichText, InnerBlocks } = wp.editor
+const { times } = window.lodash
 
 const attributes = {
   title: {
