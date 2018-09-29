@@ -43,6 +43,9 @@ class GutenbergHandler extends AbstractHook
 
         // Add Gumbo group
         add_filter('block_categories', [$this, 'registerCategory'], 10, 2);
+
+        // Remove Gutenberg menu
+        add_action('admin_menu', [$this, 'removeGutenbergAdminMenu'], 20);
     }
 
     /**
@@ -89,5 +92,16 @@ class GutenbergHandler extends AbstractHook
 
         // Done :D
         return $categories;
+    }
+
+    /**
+     * Removes the Gutenberg demo menu
+     *
+     * @return void
+     */
+    public function removeGutenbergAdminMenu() : void
+    {
+        // Remove the Gutenberg menu
+        remove_menu_page('gutenberg');
     }
 }
