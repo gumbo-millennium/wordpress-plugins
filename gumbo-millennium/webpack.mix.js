@@ -1,4 +1,5 @@
 const mix = require('laravel-mix')
+const StyleLintPlugin = require('stylelint-webpack-plugin')
 
 // Configure root path
 mix
@@ -32,7 +33,14 @@ mix.webpackConfig({
         }
       }
     ]
-  }
+  },
+  plugins: [
+    new StyleLintPlugin({
+      files: [
+        'lib/**/*.s?(a|c)ss'
+      ]
+    })
+  ]
 })
 
 // Banner
