@@ -6,7 +6,6 @@ namespace Gumbo\Plugin\Gutenberg;
 use Gumbo\Plugin\Plugin;
 use Gumbo\Plugin\AssetHandler;
 
-
 /**
  * Gutenberg block, with a default register() method.
  *

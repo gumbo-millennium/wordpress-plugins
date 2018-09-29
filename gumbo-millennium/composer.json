@@ -17,5 +17,8 @@
       "optimize-autoloader": true,
       "preferred-install": "dist",
       "sort-packages": true
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^3.3"
     }
 }
