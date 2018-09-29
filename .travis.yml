@@ -46,6 +46,9 @@ script:
   # Make zipfile
   - make gumbo-millennium.zip
 
+  # Copy zipfile to git root
+  - cp "gumbo-millennium.zip" "$( git rev-parse --show-toplevel 2>/dev/null)/gumbo-millennium.zip"
+
 matrix:
   fast_finish: true
   allow_failures:
@@ -55,7 +58,7 @@ deploy:
   provider: releases
   api_key:
     secure: IxPjPcVah6JWvfjbQfm+gLYCQhduxOeBXeumQ+26LRd2RH+UowMRrXNYMU21cHErXqn8DbRGzd3vti7xI0z3S1Nn+FFkvOPFU31ycsYXmfgoMrUG4eTfebYfw7aBjyrenSQ4ojkEqGA8San8MYykA6O/MFpHTnNQEkHaeV9WpEp2E9qqn3gxICt0tvwc9SgJcf7KRG6i/zzur990QKZfs+l2vQXD68V0iuS89TRrERNnXaEpN02h877sVlD/b87/Zr+4kfWPeoVc123E34XhJvDHZOGh6KfNmySO55pbkIUu3lsCN+ojWRpC5B+pj3Xyrmz/HzO9MiriLMpijChYihLk5KxkbTlXrc/mVNYE2+YovJhXralGG7PuVCGsAdIPuBQXQLVDDgqgy0KO7UtZAmzFktJRRPRAb3vIZpF9KTHHKaGQXKVEDom52X5fq3D1ndElTeIo+s0V3VqQeshzri8KWT588uTjPjHFqzqHeewvI7DlSqD1+qPjD5Dmes855mZGwncuBSKUyEDnIUZBqbQv1y+anAxT5XPP+E3yvnCI7jDeYGiHjX0vOJIoepitYY1d0r8o5pMkYTImn+PZVISs1p+U3wBfrHtNRxLIPtm0faSCGofmkOcwZPinzTySezEW8LqS8WtGDQkDcfsbEntygJuh2sL3/+++FKUzTHo=
-  file: "gumbo-millennium/gumbo-millennium.zip"
+  file: "gumbo-millennium.zip"
   skip_cleanup: true
   on:
     tags: true
