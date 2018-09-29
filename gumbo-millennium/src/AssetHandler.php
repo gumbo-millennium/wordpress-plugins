@@ -20,7 +20,7 @@ class AssetHandler
      * Scripts to load
      */
     const SCRIPT_LIST = [
-        'gutenberg-js' => ['js', 'dist/gutenberg.js', ['wp-blocks', 'wp-element'], false],
+        'gutenberg-js' => ['js', 'dist/gutenberg.js', ['wp-blocks', 'wp-element', 'lodash'], false],
         'gutenberg-css' => ['css', 'dist/gutenberg.css', null, false],
         'plugin-js' => ['js', 'dist/gumbo-plugin.js', null, true],
         'plugin-css' => ['css', 'dist/gumbo-plugin.css', null, true],
