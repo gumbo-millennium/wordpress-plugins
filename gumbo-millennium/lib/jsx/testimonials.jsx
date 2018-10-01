@@ -4,9 +4,11 @@
  */
 
 import registerBlock from './gumbo'
+import iconRender from './svg'
 
 const BLOCK_NAME = 'gumbo/testimonials'
 const { RichText, MediaUpload } = wp.editor
+const icon = iconRender('quote')
 
 const attributes = {
   content: {
@@ -111,6 +113,7 @@ const init = () => {
   registerBlock({
     name: BLOCK_NAME,
     title: 'Leden citaat',
+    icon: icon,
 
     attributes: attributes,
     edit: edit,

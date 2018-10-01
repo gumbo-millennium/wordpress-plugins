@@ -7,11 +7,12 @@
 
 // Import times
 import registerBlock from './gumbo'
-import { trophy as icon } from './svg'
+import iconRender from './svg'
 
 const BLOCK_NAME = 'gumbo/unique-selling-points'
 const { RichText, InnerBlocks } = wp.editor
 const { times } = window.lodash
+const icon = iconRender('trophy')
 
 const attributes = {
   title: {

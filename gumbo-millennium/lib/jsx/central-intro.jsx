@@ -6,10 +6,11 @@
  */
 
 import registerBlock from './gumbo'
-import { question as icon } from './svg'
+import iconRender from './svg'
 
 const BLOCK_NAME = 'gumbo/central-intro'
 const { RichText } = wp.editor
+const icon = iconRender('question')
 
 const attributes = {
   title: {

@@ -6,7 +6,8 @@
  */
 
 import registerBlock from './gumbo'
-import { ad as icon } from './svg'
+import iconRender from './svg'
+const icon = iconRender('ad')
 
 const BLOCK_NAME = 'gumbo/sponsor'
 
@@ -14,7 +15,7 @@ const init = () => {
   registerBlock({
     name: BLOCK_NAME,
     title: 'Sponsor',
-    svg: icon,
+    icon: icon,
 
     supports: {
       multiple: false
