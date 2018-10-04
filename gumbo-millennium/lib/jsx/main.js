@@ -8,6 +8,7 @@
 // Import objects
 import filterBlocks from './whitelist'
 import registerCentralIntro from './central-intro'
+import registerCtaBanner from './cta-banner'
 import registerSponsor from './sponsor'
 import registerTestimonials from './testimonials'
 import registerUSPGroup from './unique-selling-points'
@@ -26,6 +27,9 @@ filterBlocks()
 
 // Register central introduction
 registerCentralIntro()
+
+// Register call-to-action banner
+registerCtaBanner()
 
 // Register sponsor block
 registerSponsor()

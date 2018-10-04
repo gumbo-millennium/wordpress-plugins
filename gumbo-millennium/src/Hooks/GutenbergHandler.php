@@ -9,6 +9,7 @@ use Gumbo\Plugin\Gutenberg\CentralIntro;
 use Gumbo\Plugin\Gutenberg\UniqueSellingPoint;
 use Gumbo\Plugin\Gutenberg\UniqueSellingPoints;
 use Gumbo\Plugin\Gutenberg\Testimonials;
+use Gumbo\Plugin\Gutenberg\CtaBanner;
 
 /**
  * Loads Gutenberg block types
@@ -25,6 +26,7 @@ class GutenbergHandler extends AbstractHook
      */
     const BLOCK_TYPES = [
         CentralIntro::class,
+        CtaBanner::class,
         Sponsor::class,
         Testimonials::class,
         UniqueSellingPoint::class,
