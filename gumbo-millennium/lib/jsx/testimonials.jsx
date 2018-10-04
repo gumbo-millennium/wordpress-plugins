@@ -8,7 +8,7 @@ import iconRender from './svg'
 
 const BLOCK_NAME = 'gumbo/testimonials'
 const { RichText, MediaUpload } = wp.editor
-const icon = iconRender('quote')
+const icon = iconRender('comment')
 
 const attributes = {
   content: {
@@ -27,7 +27,8 @@ const attributes = {
     type: 'number'
   },
   photo: {
-    type: 'attribute',
+    type: 'string',
+    source: 'attribute',
     attribute: 'src',
     selector: '.testimonials__photo'
   }
@@ -63,7 +64,7 @@ const edit = function ({ attributes, setAttributes }) {
     render={iconPlaceholder}
   />
 
-  return <div class="testimonials testimonials--editor">
+  return <div className="testimonials testimonials--editor">
     <RichText
       tagName="div"
       multiline=""
@@ -98,8 +99,8 @@ const save = function ({ attributes }) {
   return <div className="testimonials">
     <div className="container">
       <RichText.Content tagName="div" className="testimonials__quote" value={attributes.content} />
-      <div class="testimonials__meta">
-        <img src={attributes.photo} class="testimonials__photo" />
+      <div className="testimonials__meta">
+        <img src={attributes.photo} className="testimonials__photo" />
         <div className="testimonials__author">
           <RichText.Content tagName="span" value={attributes.author} className="testimonials__author-name" />
           <RichText.Content tagName="span" value={attributes.company} className="testimonials__author-company" />

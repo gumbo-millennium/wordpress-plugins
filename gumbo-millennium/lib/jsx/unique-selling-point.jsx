@@ -23,7 +23,8 @@ const attributes = {
     type: 'number'
   },
   src: {
-    type: 'attribute',
+    type: 'string',
+    source: 'attribute',
     attribute: 'src',
     selector: '.unique-selling-points__feature-icon'
   }
@@ -59,7 +60,7 @@ const edit = function ({ attributes, setAttributes }) {
     render={iconPlaceholder}
   />
 
-  return <div class="unique-selling-points__feature unique-selling-points__feature--editor">
+  return <div className="unique-selling-points__feature unique-selling-points__feature--editor">
     {icon}
     <section className="unique-selling-points__feature-inner">
       <RichText
@@ -82,9 +83,9 @@ const edit = function ({ attributes, setAttributes }) {
 }
 
 const save = function ({ attributes }) {
-  return <div class="col-md-6 unique-selling-points__feature">
-    <img src={attributes.src} class="unique-selling-points__feature-icon" />
-    <section class="unique-selling-points__feature-inner">
+  return <div className="col-md-6 unique-selling-points__feature">
+    <img src={attributes.src} className="unique-selling-points__feature-icon" />
+    <section className="unique-selling-points__feature-inner">
       <RichText.Content tagName="h4" className="unique-selling-points__feature-title" value={attributes.title} />
       <RichText.Content tagName="p" value={attributes.content} className="unique-selling-points__feature-desc" />
     </section>
@@ -96,9 +97,8 @@ const init = () => {
     name: BLOCK_NAME,
     title: 'Verkooppunt',
 
-    // Only as parent of the USPs block, and don't show as insertable
-    parent: ['gumbo/unique-selling-points'],
-    inserter: false,
+    // Only as parent of the USPs block
+    parent: ['gumbo/unique-selling-points', 'core/columns'],
 
     attributes: attributes,
     edit: edit,

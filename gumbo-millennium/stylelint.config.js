@@ -13,7 +13,8 @@ module.exports = {
   ignoreFiles: [
     'node_modules/*',
     'bower_components/*',
-    'vendor/*'
+    'vendor/*',
+    'lib/jsx/*'
   ],
   rules: {
     'selector-max-id': 0,

@@ -29,9 +29,9 @@ const ALLOWED_BLOCKS = ['gumbo/unique-selling-point']
 const TEMPLATE = times(4, () => ['gumbo/unique-selling-point'])
 
 const edit = function ({ attributes, className, setAttributes }) {
-  return <div class="unique-selling-points unique-selling-points--editor">
-    <div class="container">
-      <header class="unique-selling-points__header">
+  return <div className="unique-selling-points unique-selling-points--editor">
+    <div className="container">
+      <header className="unique-selling-points__header">
         <RichText
           tagName="h3"
           className="unique-selling-points__header-title"
@@ -47,12 +47,12 @@ const edit = function ({ attributes, className, setAttributes }) {
           onChange={(subtitle) => setAttributes({ subtitle })}
         />
       </header>
-      <section class="unique-selling-points__features">
-        <div class="row">
+      <section className="unique-selling-points__features">
+        <div className="row">
           <InnerBlocks
-            template={TEMPLATE}
-            templateLock="all"
             allowedBlocks={ALLOWED_BLOCKS}
+            template={TEMPLATE}
+            templateLock="insert"
           />
         </div>
       </section>
@@ -61,9 +61,9 @@ const edit = function ({ attributes, className, setAttributes }) {
 }
 
 const save = function ({ attributes }) {
-  return <div class="unique-selling-points">
-    <div class="container">
-      <header class="unique-selling-points__header">
+  return <div className="unique-selling-points">
+    <div className="container">
+      <header className="unique-selling-points__header">
         <RichText.Content
           tagName="h3"
           className="unique-selling-points__header-title"
@@ -75,8 +75,8 @@ const save = function ({ attributes }) {
           value={attributes.subtitle}
         />
       </header>
-      <section class="unique-selling-points__features">
-        <div class="row">
+      <section className="unique-selling-points__features">
+        <div className="row">
           <InnerBlocks.Content />
         </div>
       </section>
@@ -88,7 +88,7 @@ const init = () => {
   registerBlock({
     name: BLOCK_NAME,
     title: 'Unieke verkooppunten',
-    svg: icon,
+    icon: icon,
 
     attributes: attributes,
     edit: edit,

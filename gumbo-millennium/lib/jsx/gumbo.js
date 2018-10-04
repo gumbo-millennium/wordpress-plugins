@@ -40,12 +40,6 @@ const registerBlock = (args) => {
     finalConfig.supports = {...baseConfig.supports, ...args.supports}
   }
 
-  if (finalConfig.hasOwnProperty('svg')) {
-    finalConfig.icon = args.svg
-
-    delete finalConfig.svg
-  }
-
   delete finalConfig.name
 
   console.log('Register block %s, %s: %O', name, title, finalConfig)

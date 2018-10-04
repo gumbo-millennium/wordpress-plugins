@@ -87,8 +87,8 @@ class GutenbergHandler extends AbstractHook
             'title' => 'Gumbo Millennium',
         ];
 
-        // Add gumbo as 3rd item
-        array_splice($categories, 1, 0, [$gumboCategory]);
+        // Add gumbo as first item
+        array_unshift($categories, $gumboCategory);
 
         // Done :D
         return $categories;

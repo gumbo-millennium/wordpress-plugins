@@ -33,7 +33,7 @@ const edit = function ({ attributes, className, setAttributes }) {
       value={attributes.title}
       onChange={(title) => setAttributes({ title })}
     />
-    <hr class="central-intro__divider" />
+    <hr className="central-intro__divider" />
     <RichText
       tagName="p"
       format="string"
@@ -47,9 +47,9 @@ const edit = function ({ attributes, className, setAttributes }) {
 
 const save = function ({ attributes }) {
   return <div className="central-intro">
-    <div class="central-intro__container">
+    <div className="central-intro__container">
       <RichText.Content tagName="h3" className="central-intro__title" value={attributes.title} />
-      <hr class="central-intro__divider" />
+      <hr className="central-intro__divider" />
       <RichText.Content tagName="p" className="central-intro__content" value={attributes.content} />
     </div>
   </div>
@@ -59,13 +59,15 @@ const init = () => {
   registerBlock({
     name: BLOCK_NAME,
     title: 'Centrale pagina intro',
-    svg: icon,
+    icon: icon,
 
     attributes: attributes,
     edit: edit,
     save: save,
 
     styles: [
+      { name: 'light', label: 'Licht', isDefault: true },
+      { name: 'regular', label: 'Normaal' },
       { name: 'dark', label: 'Donker' },
       { name: 'brand', label: 'Gumbo Groen' }
     ]
