@@ -8,6 +8,7 @@ use Gumbo\Plugin\Hooks\GutenbergHandler;
 use Gumbo\Plugin\Hooks\PluginFilterHandler;
 use Gumbo\Plugin\Hooks\PostTypeHandler;
 use Gumbo\Plugin\Hooks\LoopbackRestHandler;
+use Gumbo\Plugin\Hooks\PostConversionHook;
 
 /**
  * Boots the plugin, which /should/ be loaded as a must-use plugin. This means
@@ -22,6 +23,7 @@ class Plugin
         PluginFilterHandler::class,
         GutenbergHandler::class,
         LoopbackRestHandler::class,
+        PostConversionHook::class,
         PostTypeHandler::class,
     ];
 
