@@ -32,6 +32,9 @@ class PostTypeHandler extends AbstractHook
     {
         // Add custom post types
         add_action('init', [$this, 'init']);
+
+        // De-register capabilities
+        add_action('admin_init', [$this, 'restrictPostTypeCapabilities']);
     }
 
     /**
@@ -45,6 +48,37 @@ class PostTypeHandler extends AbstractHook
         foreach (self::POST_TYPES as $type) {
             if (is_a($type, PostType::class, true)) {
                 (new $type)->registerType();
+            }
+        }
+    }
+
+    /**
+     * Restrict capabilities for post types, such as thumbnails on pages and comments on all pages.
+     *
+     * @return void
+     */
+    public function restrictPostTypeCapabilities() : void
+    {
+        /*
+         * All core features are directly associated with a functional area of the edit
+         * screen, such as the editor or a meta box. Features include: 'title', 'editor',
+         * 'comments', 'revisions', 'trackbacks', 'author', 'excerpt', 'page-attributes',
+         * 'thumbnail', 'custom-fields', and 'post-formats'.
+         */
+        $allowedCapabilityMap = [
+            'comments' => ['activity'],
+            'trackbacks' => null,
+            'thumbnail' => ['posts', 'attachments'],
+            'post-formats' => null
+        ];
+
+        // Check all capabilities, and remove all non-matching ones
+        foreach ($allowedCapabilityMap as $capability => $types) {
+            $currentTypes = get_post_types_by_support($capability);
+            foreach ($currentTypes as $type) {
+                if ($types === null || !in_array($type, $types)) {
+                    remove_post_type_support($type, $capability);
+                }
             }
         }
     }
