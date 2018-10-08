@@ -40,4 +40,3 @@ registerTestimonials()
 // Register the Unique Selling Points
 registerUSPGroup()
 registerUSPItem()
-
