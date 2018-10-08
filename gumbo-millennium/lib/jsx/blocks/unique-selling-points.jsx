@@ -1,19 +1,25 @@
 /**
- * Sponsor block
+ * Unique selling points, contains unique selling point blocks
  *
  * @author Roelof Roos <github@roelof.io>
  * @license MPL-2.0
  */
 
-// Import times
-import registerBlock from './gumbo'
-import iconRender from './svg'
+// Imports
+import { registerBlockType } from '../helpers/gumbo'
+import svg from './../helpers/svg'
 
-const BLOCK_NAME = 'gumbo/unique-selling-points'
+// Constant imports
 const { RichText, InnerBlocks } = wp.editor
 const { times } = window.lodash
-const icon = iconRender('trophy')
 
+// Metadata
+const meta = {
+  title: 'Unieke verkooppunten',
+  icon: svg('trophy')
+}
+
+// Attributes
 const attributes = {
   title: {
     source: 'text',
@@ -25,10 +31,15 @@ const attributes = {
   }
 }
 
+// List of styles
+const styles = []
+
+// Edit definitions
 const ALLOWED_BLOCKS = ['gumbo/unique-selling-point']
 const TEMPLATE = times(4, () => ['gumbo/unique-selling-point'])
 
-const edit = function ({ attributes, className, setAttributes }) {
+// Edit method (editor-visible HTML)
+const edit = ({ attributes, className, setAttributes }) => {
   return <div className="unique-selling-points unique-selling-points--editor">
     <div className="container">
       <header className="unique-selling-points__header">
@@ -60,6 +71,7 @@ const edit = function ({ attributes, className, setAttributes }) {
   </div>
 }
 
+// Save method (stored HTML)
 const save = function ({ attributes }) {
   return <div className="unique-selling-points">
     <div className="container">
@@ -84,16 +96,13 @@ const save = function ({ attributes }) {
   </div>
 }
 
-const init = () => {
-  registerBlock({
-    name: BLOCK_NAME,
-    title: 'Unieke verkooppunten',
-    icon: icon,
-
-    attributes: attributes,
-    edit: edit,
-    save: save
+// Publish block
+export default () => {
+  registerBlockType('gumbo/unique-selling-points', {
+    ...meta,
+    attributes,
+    styles,
+    edit,
+    save
   })
 }
-
-export default init

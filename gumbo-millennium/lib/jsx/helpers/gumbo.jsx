@@ -23,8 +23,7 @@ const baseConfig = {
   save: () => null
 }
 
-export default function registerBlockType (args) {
-  let name = args.name || null
+export function registerBlockType (name, args) {
   let opts = {
     ...baseConfig,
     ...args

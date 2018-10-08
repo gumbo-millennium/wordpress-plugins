@@ -8,7 +8,7 @@ mix
 // Configure javascript and Scss
 mix
   .js('lib/js/plugin.js', 'dist/gumbo-plugin.js')
-  .react('lib/jsx/main.js', 'dist/gutenberg.js')
+  .react('lib/jsx/main.jsx', 'dist/gutenberg.js')
   .sass('lib/sass/plugin.scss', 'dist/gumbo-plugin.css')
   .sass('lib/sass/gutenberg.scss', 'dist/gutenberg.css')
 

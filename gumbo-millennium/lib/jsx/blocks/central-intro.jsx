@@ -5,13 +5,20 @@
  * @license MPL-2.0
  */
 
-import registerBlock from './gumbo'
-import iconRender from './svg'
+// Imports
+import { registerBlockType } from '../helpers/gumbo'
+import svg from './../helpers/svg'
 
-const BLOCK_NAME = 'gumbo/central-intro'
+// Constant imports
 const { RichText } = wp.editor
-const icon = iconRender('question')
 
+// Metadata
+const meta = {
+  title: 'Centrale pagina intro',
+  icon: svg('question')
+}
+
+// Attributes
 const attributes = {
   title: {
     source: 'text',
@@ -23,7 +30,16 @@ const attributes = {
   }
 }
 
-const edit = function ({ attributes, className, setAttributes }) {
+// List of styles
+const styles = [
+  { name: 'light', label: 'Licht', isDefault: true },
+  { name: 'regular', label: 'Normaal' },
+  { name: 'dark', label: 'Donker' },
+  { name: 'brand', label: 'Gumbo Groen' }
+]
+
+// Edit method (editor-visible HTML)
+const edit = ({ attributes, className, setAttributes }) => {
   return <div className="central-intro central-intro--editor">
     <RichText
       tagName="h3"
@@ -45,7 +61,8 @@ const edit = function ({ attributes, className, setAttributes }) {
   </div>
 }
 
-const save = function ({ attributes }) {
+// Save method (stored HTML)
+const save = ({ attributes }) => {
   return <div className="central-intro">
     <div className="central-intro__container">
       <RichText.Content tagName="h3" className="central-intro__title" value={attributes.title} />
@@ -55,23 +72,13 @@ const save = function ({ attributes }) {
   </div>
 }
 
-const init = () => {
-  registerBlock({
-    name: BLOCK_NAME,
-    title: 'Centrale pagina intro',
-    icon: icon,
-
-    attributes: attributes,
-    edit: edit,
-    save: save,
-
-    styles: [
-      { name: 'light', label: 'Licht', isDefault: true },
-      { name: 'regular', label: 'Normaal' },
-      { name: 'dark', label: 'Donker' },
-      { name: 'brand', label: 'Gumbo Groen' }
-    ]
+// Publish block
+export default () => {
+  registerBlockType('gumbo/central-intro', {
+    ...meta,
+    attributes,
+    styles,
+    save,
+    edit
   })
 }
-
-export default init

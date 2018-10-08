@@ -1,16 +1,25 @@
 /**
+ * Sponsor block
+ *
  * @author Roelof Roos <github@roelof.io>
  * @license MPL-2.0
  */
 
-import registerBlock from './gumbo'
-import iconRender from './svg'
-import LinkedButton from './components/linked-button'
+// Imports
+import { LinkedButton } from '../components/linked-button'
+import { registerBlockType } from '../helpers/gumbo'
+import svg from './../helpers/svg'
 
-const BLOCK_NAME = 'gumbo/cta-block'
+// Constant imports
 const { RichText } = wp.editor
-const icon = iconRender('bullseye')
 
+// Metadata
+const meta = {
+  title: 'Call to Action blok',
+  icon: svg('bullseye')
+}
+
+// Attributes
 const attributes = {
   primary: {
     source: 'html',
@@ -32,10 +41,16 @@ const attributes = {
   }
 }
 
-const edit = props => {
-  console.log('Got properties: %O', props)
-  let { attributes, setAttributes } = props
+// List of styles
+const styles = [
+  { name: 'light', label: 'Licht', isDefault: true },
+  { name: 'regular', label: 'Normaal' },
+  { name: 'dark', label: 'Donker' },
+  { name: 'brand', label: 'Gumbo Groen' }
+]
 
+// Edit method (editor-visible HTML)
+const edit = ({ attributes, className, setAttributes }) => {
   return <div className="cta-banner cta-banner--editor">
     <div className="cta-banner__text-container">
       <RichText
@@ -71,7 +86,8 @@ const edit = props => {
   </div>
 }
 
-const save = ({attributes}) => {
+// Save method (stored HTML)
+const save = ({ attributes }) => {
   return <div className="cta-banner">
     <div className="container cta-banner__container">
       <div className="cta-banner__text-container">
@@ -88,16 +104,13 @@ const save = ({attributes}) => {
   </div>
 }
 
-const init = () => {
-  registerBlock({
-    name: BLOCK_NAME,
-    title: 'Call to Action blok',
-    icon: icon,
-
-    attributes: attributes,
-    edit: edit,
-    save: save
+// Publish block
+export default () => {
+  registerBlockType('gumbo/cta-block', {
+    ...meta,
+    attributes,
+    styles,
+    save,
+    edit
   })
 }
-
-export default init

@@ -1,15 +1,25 @@
 /**
- * Sponsor block
+ * Unique selling point, child of unique parent nodes
  *
  * @author Roelof Roos <github@roelof.io>
  * @license MPL-2.0
  */
 
-import registerBlock from './gumbo'
+// Imports
+import { registerBlockType } from '../helpers/gumbo'
 
-const BLOCK_NAME = 'gumbo/unique-selling-point'
+// Constant imports
 const { RichText, MediaUpload } = wp.editor
 
+// Metadata
+const meta = {
+  title: 'Uniek verkooppunt',
+
+  // Only as parent of the USPs block
+  parent: ['gumbo/unique-selling-points', 'core/columns']
+}
+
+// Attributes
 const attributes = {
   title: {
     source: 'text',
@@ -30,7 +40,11 @@ const attributes = {
   }
 }
 
-const edit = function ({ attributes, setAttributes }) {
+// List of styles
+const styles = []
+
+// Edit method (editor-visible HTML)
+const edit = ({ attributes, className, setAttributes }) => {
   const onSelectImage = media => {
     if (!media || !media.url) {
       setAttributes({ src: undefined, id: undefined })
@@ -40,7 +54,7 @@ const edit = function ({ attributes, setAttributes }) {
   }
 
   let iconPlaceholder
-  iconPlaceholder = ({open}) => {
+  iconPlaceholder = ({ open }) => {
     if (!attributes.src) {
       return <div
         className="unique-selling-points__feature-icon unique-selling-points__feature-icon--placeholder"
@@ -82,6 +96,7 @@ const edit = function ({ attributes, setAttributes }) {
   </div>
 }
 
+// Save method (stored HTML)
 const save = function ({ attributes }) {
   return <div className="col-md-6 unique-selling-points__feature">
     <img src={attributes.src} className="unique-selling-points__feature-icon" />
@@ -92,18 +107,13 @@ const save = function ({ attributes }) {
   </div>
 }
 
-const init = () => {
-  registerBlock({
-    name: BLOCK_NAME,
-    title: 'Verkooppunt',
-
-    // Only as parent of the USPs block
-    parent: ['gumbo/unique-selling-points', 'core/columns'],
-
-    attributes: attributes,
-    edit: edit,
-    save: save
+// Publish block
+export default () => {
+  registerBlockType('gumbo/unique-selling-point', {
+    ...meta,
+    attributes,
+    styles,
+    edit,
+    save
   })
 }
-
-export default init
