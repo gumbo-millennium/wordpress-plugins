@@ -7,12 +7,12 @@ use PHPUnit\Framework\Constraint\Callback;
 use Gumbo\Plugin\MetaBoxes\ActivityBox;
 
 /**
-* Registers the activity type, which is used to schedule events.
+* Registers an activity type, which is used to schedule events.
 *
 * @author Roelof Roos <github@roelof.io>
 * @license MPL-2.0
 */
-class ActivityType extends PostType
+class Activity extends PostType
 {
     /**
      * {@inheritDoc}

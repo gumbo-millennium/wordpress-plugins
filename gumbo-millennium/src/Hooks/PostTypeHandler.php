@@ -4,7 +4,7 @@ declare (strict_types = 1);
 namespace Gumbo\Plugin\Hooks;
 
 use Gumbo\Plugin\PostTypes\PostType;
-use Gumbo\Plugin\PostTypes\ActivityType;
+use Gumbo\Plugin\PostTypes\Activity;
 
 /**
  * Loads custom post types, for events and files
@@ -20,7 +20,7 @@ class PostTypeHandler extends AbstractHook
      * @var array
      */
     const POST_TYPES = [
-        ActivityType::class
+        Activity::class
     ];
 
     /**
