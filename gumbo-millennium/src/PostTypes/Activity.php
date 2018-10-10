@@ -25,6 +25,14 @@ class Activity extends PostType
     /**
      * {@inheritDoc}
      */
+    protected function getCapabilityName()
+    {
+        return 'activity';
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     protected function getProperties() : array
     {
         return [
@@ -32,7 +40,6 @@ class Activity extends PostType
                 'name' => __('Activities'),
                 'singular_name' => __('Activity')
             ],
-            'public' => true,
             'has_archive' => true,
             'rewrite' => ['slug' => 'activiteiten'],
             'supports' => [
@@ -50,12 +57,5 @@ class Activity extends PostType
         return [
             ActivityBox::class
         ];
-    }
-
-    private function renderDates() : void
-    {
-        echo <<<HTML
-<p>WORDS</p>
-HTML;
     }
 }

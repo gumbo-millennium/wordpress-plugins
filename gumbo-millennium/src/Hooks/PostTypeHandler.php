@@ -44,11 +44,18 @@ class PostTypeHandler extends AbstractHook
      */
     public function init() : void
     {
+        $postTypes = [];
         // Register post types, if they're valid
         foreach (self::POST_TYPES as $type) {
             if (is_a($type, PostType::class, true)) {
-                (new $type)->registerType();
+                $postTypes = new $type;
+                $postTypes->registerType();
             }
+        }
+
+        // Bind after registration
+        foreach ($postTypes as $postType) {
+            $postType->bind();
         }
     }
 

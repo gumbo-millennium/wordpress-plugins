@@ -13,6 +13,24 @@ use Gumbo\Plugin\MetaBoxes\MetaBox;
  */
 abstract class PostType
 {
+    /**
+     * Default recommended properties.
+     *
+     * @var array
+     */
+    const DEFAULT_PROPERTIES = [
+        'public' => true,
+        'publicly_queryable' => false,
+        'show_ui' => true,
+        'show_in_nav_menus' => false,
+        'show_in_rest' => true
+    ];
+
+    /**
+     * List of available post features
+     *
+     * @var array
+     */
     const POST_FEATURES = [
         'title',
         'editor',
@@ -42,6 +60,17 @@ abstract class PostType
     abstract protected function getProperties() : array;
 
     /**
+     * Returns the name used to generate capabilities, defaults to 'post' if null.
+     * Return an array if you want to use an alternative for the plural form (e.g. ['post', 'posts'])
+     *
+     * @return string|array|null
+     */
+    protected function getCapabilityName()
+    {
+        return null;
+    }
+
+    /**
      * Returns a list of meta box classes, which should be registered alongside this post type.
      *
      * @return array Fully qualified class names of the meta boxes
@@ -50,6 +79,14 @@ abstract class PostType
     {
         // By default, no meta fields are added
         return [];
+    }
+
+    /**
+     * Binds events for WordPress, can be used to call post-type-specific hooks
+     */
+    public function bind() : void
+    {
+        // No op
     }
 
     /**
@@ -62,9 +99,23 @@ abstract class PostType
         // Get properties
         $name = $this->getName();
         $properties = $this->getProperties();
+        $capabilityName = $this->getCapabilityName();
+        $capabilityNameArray = [];
+
+        // Add capability name if the capability field is a string or two-index array
+        if ((is_array($capabilityName) && count($capabilityName) == 2) || is_string($capabilityName)) {
+            $capabilityNameArray = ['capability_type' => $capabilityName];
+        }
+
+        // Merge default, generated and custom properties
+        $joinedProperties = array_merge(
+            self::DEFAULT_PROPERTIES,
+            $capabilityNameArray,
+            $properties
+        );
 
         // Register the post type
-        register_post_type($name, $this->getProperties());
+        register_post_type($name, $joinedProperties);
 
         // Register meta fields
         foreach ($this->getMetaFields() as $metaField) {
