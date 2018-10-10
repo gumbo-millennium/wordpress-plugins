@@ -78,11 +78,6 @@ class GutenbergHandler extends AbstractHook
      */
     public function registerCategory(array $categories, $post) : array
     {
-        $supportedTypes = ['post', 'page'];
-        if (!in_array($post->post_type, $supportedTypes)) {
-            return $categories;
-        }
-
         // Define gumbo category
         $gumboCategory = [
             'slug' => 'gumbo',
