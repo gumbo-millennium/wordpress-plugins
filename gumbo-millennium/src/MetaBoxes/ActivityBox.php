@@ -42,9 +42,9 @@ class ActivityBox extends MetaBox
      *
      * @return bool
      */
-    protected function isAuthorized() : bool
+    protected function isAuthorized(\WP_Post $post) : bool
     {
-        return current_user_can('edit_post');
+        return current_user_can('edit_post', $post);
     }
 
     /**

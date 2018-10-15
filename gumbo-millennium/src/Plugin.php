@@ -3,12 +3,9 @@ declare(strict_types=1);
 
 namespace Gumbo\Plugin;
 
+use Illuminate\Container\Container;
+use Philo\Blade\Blade;
 use Gumbo\Plugin\Hooks\AbstractHook;
-use Gumbo\Plugin\Hooks\GutenbergHandler;
-use Gumbo\Plugin\Hooks\PluginFilterHandler;
-use Gumbo\Plugin\Hooks\PostTypeHandler;
-use Gumbo\Plugin\Hooks\LoopbackRestHandler;
-use Gumbo\Plugin\Hooks\PostConversionHook;
 
 /**
  * Boots the plugin, which /should/ be loaded as a must-use plugin. This means
@@ -19,14 +16,6 @@ use Gumbo\Plugin\Hooks\PostConversionHook;
  */
 class Plugin
 {
-    protected $hookClasses = [
-        PluginFilterHandler::class,
-        GutenbergHandler::class,
-        LoopbackRestHandler::class,
-        PostConversionHook::class,
-        PostTypeHandler::class,
-    ];
-
     /**
      * Returns the root path to the plugin
      *
@@ -38,38 +27,110 @@ class Plugin
     }
 
     /**
-     * Launches the plugin, by registering all bindings.
+     * Returns singleton instance
+     *
+     * @return self
+     */
+    public static function getInstance() : self
+    {
+        static $instance;
+        return $instance ?? ($instance = new self);
+    }
+
+    /**
+     * Retrieve instance from Plugin Container
+     *
+     * @param string $abstract
+     * @return mixed
+     */
+    public static function get(string $abstract)
+    {
+        return self::getInstance()->resolve($abstract);
+    }
+
+    /**
+     * Contains Laravel container
+     *
+     * @var Container
+     */
+    protected $container;
+
+    /**
+     * Handlers for WordPress
+     *
+     * @var array
+     */
+    protected $handlers = [];
+
+    /**
+     * Creates the container
+     */
+    protected function __construct()
+    {
+        // Create container
+        $this->container = new Container;
+
+        // Register ourselves
+        $this->container->instance('plugin', $this);
+
+        // Register asset handler
+        $assetHandler = new AssetHandler;
+        $assetHandler->bind();
+        $this->container->instance('asset', $assetHandler);
+    }
+
+    /**
+     * Registers a method on the container
+     *
+     * @param string $abstract
+     * @param Closure $method
+     * @return void
+     */
+    public function register(string $abstract, \Closure $method) : void
+    {
+        $this->container->singleton($abstract, $method);
+    }
+
+    /**
+     * Get something from the container
+     *
+     * @param string $abstract
+     * @param array  $parameters
+     * @return mixed
+     */
+    public function resolve(string $abstract, $parameters = [])
+    {
+        return $this->container->make($abstract, $parameters);
+    }
+
+    /**
+     * Register WordPress handler
+     *
+     * @param string $className
+     * @return void
+     */
+    public function addHandler(string $className) : void
+    {
+        if (!is_a($className, AbstractHook::class, true)) {
+            throw new \LogicException(sprintf(
+                'Tried to bind [%s], which is not an instance of [%s].',
+                $className,
+                AbstractHook::class
+            ));
+        }
+
+        // Add handler
+        $this->handlers[] = $className;
+    }
+
+    /**
+     * Launches the plugin, by registering all handlers through the service provider
      */
     public function boot() : void
     {
-        // Bind shortcodes
-        $this->bindAssets();
-
-        // Bind hooks
-        $this->bindHooks();
-    }
-
-    /**
-     * Handles WordPress bindings for hooks.
-     */
-    protected function bindHooks() : void
-    {
-        // Dynamically add hooks
-        foreach ($this->hookClasses as $hookClass) {
-            if (is_a($hookClass, AbstractHook::class, true)) {
-                (new $hookClass)->bind();
-            }
+        // Call bind method, via the Service Injection class
+        foreach ($this->handlers as $handler) {
+            $this->container->call("{$handler}@bind");
         }
-
-        // TODO Add more items, if required
-    }
-
-    /**
-     * Handles WordPress bindings for actions.
-     */
-    protected function bindAssets() : void
-    {
-        $handler = new AssetHandler;
-        $handler->bind();
     }
 }

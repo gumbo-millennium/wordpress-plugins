@@ -14,35 +14,9 @@ class DateField extends TextField
     /**
      * {@inheritDoc}
      */
-    protected function printField($value) : void
+    protected function getViewName() : string
     {
-        $html = <<<'HTML'
-<tr>
-    <th>
-        <label for="%1$s" class="%1$s_label">%2$s</label>
-    </th>
-    <td>
-        <input
-            type="text"
-            id="%1$s"
-            name="%1$s"
-            class="%1$s_field"
-            placeholder="dd-mm-yyyy"
-            value="%3$s"
-            data-cleave="date"
-            %4$s>
-        %5$s
-    </td>
-</tr>
-HTML;
-
-        vprintf($html, [
-            $this->name,
-            $this->label,
-            esc_attr($value),
-            $this->hasHelp() ? $this->getHelpAria() : null,
-            $this->hasHelp() ? $this->getHelpHtml() : null
-        ]);
+        return 'fields.date';
     }
 
     /**

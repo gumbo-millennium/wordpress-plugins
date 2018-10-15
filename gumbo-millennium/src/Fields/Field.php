@@ -3,6 +3,10 @@ declare(strict_types=1);
 
 namespace Gumbo\Plugin\Fields;
 
+use Philo\Blade\Blade;
+use Illuminate\View\View;
+
+
 /**
  * A dynamic field, used to render extra fields in meta boxes
  *
@@ -12,14 +16,19 @@ namespace Gumbo\Plugin\Fields;
 abstract class Field
 {
     /**
-     * @var string
+     * @var string Field and meta field name
      */
     protected $name;
 
     /**
-     * @var string
+     * @var string Field label
      */
     protected $label;
+
+    /**
+     * @var string Help text
+     */
+    protected $help;
 
     /**
      * Creates a new field with the given name and label
@@ -27,7 +36,7 @@ abstract class Field
      * @param string $name
      * @param string $label
      */
-    public function __construct(string $name, string $label)
+    public function __construct(string $name, string $label, string $help = null)
     {
         if (!preg_match('/^[a-z][a-z0-9_\-]+$/', $name)) {
             throw new \LogicException(sprintf(
@@ -36,29 +45,52 @@ abstract class Field
             ));
         }
 
+        // Assign name and label
         $this->name = $name;
         $this->label = $label;
+
+        // Assign help
+        $help = $help ? trim($help) : null;
+        $this->help = !empty($help) ? $help : null;
+    }
+
+    /**
+     * In-memory cache of views
+     *
+     * @param Blade $blade
+     * @param string $viewName
+     * @return View
+     */
+    final protected function getView(Blade $blade, string $viewName) : View
+    {
+        static $viewCache = [];
+
+        if (isset($viewCache[$viewName])) {
+            return $viewCache[$viewName];
+        }
+
+        return $viewCache[$viewName] = $blade->view()->make($viewName);
     }
 
     /**
      * Actually renders the form, by retrieving the corresponding data from the database.
      *
+     * @param Blade $blade Dependency-injected Laravel Blade engine
      * @param \WP_Post $post
+     * @param bool $authorized Is the user authorized to edit this item?
      * @return void
      */
-    public function render(\WP_Post $post, bool $authorized) : void
+    final public function render(Blade $blade, \WP_Post $post, bool $authorized) : void
     {
+        // Get field value from post
         $value = get_post_meta($post->ID, $this->name, true);
 
-        if ($value === '') {
-            $value = $this->getDefaultValue();
-        }
-
-        if ($authorized) {
-            $this->printField($value);
-        } else {
-            $this->printDisplay($value);
-        }
+        // Render view using Blade
+        echo $this->getView($blade, $this->getViewName())->with([
+            'field' => $this,
+            'value' => $value === '' ? $this->getDefaultValue() : $value,
+            'authorized' => $authorized
+        ])->render();
     }
 
     /**
@@ -80,34 +112,6 @@ abstract class Field
     }
 
     /**
-     * Prints the display of the value. Called instead of printField when the user
-     * is not allowed to change the value.
-     *
-     * @param mixed $value
-     * @return void
-     */
-    protected function printDisplay($value) : void
-    {
-        $this->printField($value);
-    }
-
-    /**
-     * Renders HTML for the form
-     *
-     * @param mixed $value
-     * @return void
-     */
-    abstract protected function printField($value) : void;
-
-    /**
-     * Sanitizes data for the field
-     *
-     * @param mixed $value  "Dirty" value
-     * @return mixed        Clean value
-     */
-    abstract protected function filterData($value);
-
-    /**
      * Returns the default value for the item. Defaults to a null value.
      *
      * @return mixed
@@ -116,4 +120,41 @@ abstract class Field
     {
         return null;
     }
+
+    /**
+     * Magically retrieve properties from the object, even if they're protected or private.
+     *
+     * @param string $key
+     * @return mixed
+     * @throws LogicException if the code requests non-existing properties.
+     */
+    public function __get(string $key)
+    {
+        // Return the property if it exists
+        if (property_exists($this, $key)) {
+            return $this->{$key};
+        }
+
+        // Return exception otherwise
+        throw new \LogicException(sprintf(
+            'Tried to access non-existing propety [%s] on [%s]',
+            $key,
+            static::class
+        ));
+    }
+
+    /**
+     * Returns the name of the Blade view to render the form field with.
+     *
+     * @return string
+     */
+    abstract protected function getViewName() : string;
+
+    /**
+     * Sanitizes data for the field
+     *
+     * @param mixed $value  "Dirty" value
+     * @return mixed        Clean value
+     */
+    abstract protected function filterData($value);
 }

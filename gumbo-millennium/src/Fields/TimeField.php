@@ -14,38 +14,9 @@ class TimeField extends TextField
     /**
      * {@inheritDoc}
      */
-    protected function printField($value) : void
+    protected function getViewName() : string
     {
-        $html = <<<'HTML'
-<tr>
-    <th>
-        <label for="%1$s" class="%1$s_label">%2$s</label>
-    </th>
-    <td>
-        <input
-            type="text"
-            id="%1$s"
-            name="%1$s"
-            class="%1$s_field"
-            placeholder="hh:mm"
-            value="%4$s"
-            format="[0-2][0-9]:[0-5][0-9]"
-            data-cleave="time"
-            %5$s>
-        %6$s
-    </td>
-</tr>
-HTML;
-
-        printf(
-            $html,
-            $this->name,
-            $this->label,
-            esc_attr($this->label),
-            esc_attr($value),
-            $this->hasHelp() ? $this->getHelpAria() : null,
-            $this->hasHelp() ? $this->getHelpHtml() : null
-        );
+        return 'fields.time';
     }
 
     /**

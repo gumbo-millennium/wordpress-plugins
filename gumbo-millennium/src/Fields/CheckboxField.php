@@ -4,21 +4,20 @@ declare(strict_types=1);
 namespace Gumbo\Plugin\Fields;
 
 /**
- * A text field, for extra text-based metadata
+ * A true/false checkbox field
  *
  * @author Roelof Roos <github@roelof.io>
  * @license MPL-2.0
  */
-class TextField extends Field
+class CheckboxField extends Field
 {
     /**
      * {@inheritDoc}
      */
     protected function getViewName() : string
     {
-        return 'fields.text';
+        return 'fields.checkbox';
     }
-
 
     /**
      * {@inheritDoc}
@@ -26,10 +25,10 @@ class TextField extends Field
     protected function filterData($value)
     {
         $value = trim($value);
-        if (empty($value)) {
-            return null;
+        if ($value) {
+            return true;
         } else {
-            return $value;
+            return false;
         }
     }
 }

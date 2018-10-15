@@ -103,6 +103,11 @@ class PostConversionHook extends AbstractHook
                 continue;
             }
 
+            // Make sure all arguments are counted for
+            while (count($matches) < 3) {
+                $matches[] = null;
+            }
+
             // Get name and arguments
             list($name, $args) = array_slice($matches, 1, 2);
 

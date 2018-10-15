@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace Gumbo\Plugin\MetaBoxes;
 
 use Gumbo\Plugin\Fields\Field;
+use Gumbo\Plugin\Plugin;
+use Philo\Blade\Blade;
 
 /**
  * A meta box. Fields are added by subclasses
@@ -130,12 +132,15 @@ abstract class MetaBox
         echo '<table class="form-table">';
 
         // Check if authorized
-        $authorized = $this->isAuthorized();
+        $authorized = $this->isAuthorized($post);
+
+        // Get Blade engine
+        $blade = Plugin::get(Blade::class);
 
         // Print each field
         foreach ($this->fields as $field) {
             if ($field instanceof Field) {
-                $field->render($post, $authorized);
+                $field->render($blade, $post, $authorized);
             }
         }
 
@@ -159,7 +164,7 @@ abstract class MetaBox
         }
 
         // User validation
-        if (!$this->isAuthorized()) {
+        if (!$this->isAuthorized($post)) {
             return;
         }
 
@@ -179,9 +184,10 @@ abstract class MetaBox
     /**
      * Is the user allowed to use this meta box?
      *
+     * @param WP_Post $post post being edited
      * @return bool
      */
-    protected function isAuthorized() : bool
+    protected function isAuthorized(\WP_Post $post) : bool
     {
         return true;
     }

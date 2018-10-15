@@ -94,3 +94,6 @@ dist/
 /plugin.zip
 /gumbo-millennium.zip
 /temp/
+
+# Ignore Blade cache
+/cache/
