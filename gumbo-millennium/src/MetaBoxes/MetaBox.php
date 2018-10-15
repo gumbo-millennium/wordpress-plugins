@@ -140,7 +140,12 @@ abstract class MetaBox
         // Print each field
         foreach ($this->fields as $field) {
             if ($field instanceof Field) {
-                $field->render($blade, $post, $authorized);
+                $field->render($blade, $this->context, $post, $authorized);
+            } elseif (is_string($field)) {
+                echo $blade->view()->make('content.text', [
+                    'text' => $field,
+                    'context' => $this->context
+                ])->render();
             }
         }
 

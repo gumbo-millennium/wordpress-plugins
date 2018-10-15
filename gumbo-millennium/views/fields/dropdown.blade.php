@@ -15,7 +15,7 @@
                 </option>
             @endforeach
         </select>
-        @includeWhen(!empty($field->help), 'a11y.help', ['field' => $field])
+        @include('a11y.help', ['field' => $field])
         @else
         {{ $field->options[$value] ?? 'n/a' }}
         @endif

@@ -11,7 +11,7 @@
             class="{{ $field->name }}_field"
             value="{{ $value }}"
             {{ $field->help ? " aria-describedby=\"{$field->name}\"__help" : null }}>
-        @includeWhen(!empty($field->help), 'a11y.help', ['field' => $field])
+        @include('a11y.help', ['field' => $field])
         @else
         {{ $value }}
         @endif

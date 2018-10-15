@@ -80,7 +80,7 @@ abstract class Field
      * @param bool $authorized Is the user authorized to edit this item?
      * @return void
      */
-    final public function render(Blade $blade, \WP_Post $post, bool $authorized) : void
+    final public function render(Blade $blade, string $context, \WP_Post $post, bool $authorized) : void
     {
         // Get field value from post
         $value = get_post_meta($post->ID, $this->name, true);
@@ -89,7 +89,8 @@ abstract class Field
         echo $this->getView($blade, $this->getViewName())->with([
             'field' => $this,
             'value' => $value === '' ? $this->getDefaultValue() : $value,
-            'authorized' => $authorized
+            'authorized' => $authorized,
+            'context' => $context
         ])->render();
     }
 

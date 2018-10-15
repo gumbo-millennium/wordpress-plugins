@@ -6,26 +6,26 @@ namespace Gumbo\Plugin\MetaBoxes;
 use Gumbo\Plugin\Fields\CheckboxField;
 
 /**
- * Navbar configuration, used for pages only
+ * Gumbo page configuration
  *
  * @author Roelof Roos <github@roelof.io>
  * @license MPL-2.0
  */
-class Navbar extends MetaBox
+class GumboPage extends MetaBox
 {
     /**
      * Name of the meta box, used internally
      *
      * @var string
      */
-    protected $name = 'navbar';
+    protected $name = 'gumbo-page';
 
     /**
      * Title of the meta box
      *
      * @var string
      */
-    protected $title = "Navigatiebalk instellingen";
+    protected $title = "Gumbo Millennium";
 
     /**
      * Context to display the meta box in, one of 'normal', 'side' and 'advanced'.
@@ -42,9 +42,10 @@ class Navbar extends MetaBox
     protected function registerFields() : array
     {
         return [
+            'Instellingen voor pagina\'s van de Gumbo Millennium website',
             new CheckboxField(
                 'navbar_transparent',
-                'Navigatiebalk transparant maken',
+                'Navigatiebalk transparant',
                 'Content zal achter een navigatiebalk vallen, als deze transparant is.'
             )
         ];
