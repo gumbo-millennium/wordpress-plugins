@@ -102,13 +102,7 @@ const icons = {
   }
 }
 
-/**
- * Builds an icon, using the name specified
- *
- * @param {String} iconName Icon name
- * @returns {null|Function}
- */
-const buildIcon = iconName => {
+const getIconProperties = iconName => {
   if (!icons.hasOwnProperty(iconName)) {
     console.error(`Tried to load SVG icon ${iconName}, but the icon doesn't exist!`)
     return null
@@ -124,7 +118,7 @@ const buildIcon = iconName => {
   let fields = []
   if (icon.paths) {
     icon.paths.forEach(field => {
-      fields.push(<path fill={ field[0] ? 'currentColor' : 'none'} d={ field[1] } />)
+      fields.push(<path fill={field[0] ? 'currentColor' : 'none'} d={field[1]} />)
     })
   }
 
@@ -132,7 +126,29 @@ const buildIcon = iconName => {
     fields.push(<path fill="currentColor" d={icon.path} />)
   }
 
-  return <svg {...properties } children={fields} />
+  return {
+    ...properties,
+    children: fields
+  }
+}
+
+/**
+ * Builds an icon, using the name specified
+ *
+ * @param {String} iconName Icon name
+ * @param {Number} size Size of the icon, in pixels
+ * @returns {null|Function}
+ */
+const buildIcon = (iconName, size = null) => {
+  console.log('Called with %o', [iconName, size])
+
+  let props = getIconProperties(iconName)
+
+  if (size) {
+    return <svg {...props} width={size} height={size} />
+  }
+
+  return <svg {...props} />
 }
 
 export default buildIcon
