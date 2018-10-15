@@ -8,7 +8,6 @@
 // Import objects
 import filterBlocks from './whitelist'
 import registerBlocks from './blocks'
-import registerMeta from './meta'
 
 /*
   HELPER METHODS
@@ -16,11 +15,6 @@ import registerMeta from './meta'
 
 // Filter blocks
 filterBlocks()
-
-/*
-  META BLOCK REGISTRATION
-*/
-registerMeta()
 
 /*
   BLOCK REGISTRATION

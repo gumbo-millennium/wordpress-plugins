@@ -6,8 +6,8 @@
  */
 
 // Imports
-import { LinkedButton } from '../components/linked-button'
 import { registerBlockType } from '../helpers/gumbo'
+import LinkedButton from '../components/linked-button'
 import svg from './../helpers/svg'
 
 // Constant imports

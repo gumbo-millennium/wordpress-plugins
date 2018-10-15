@@ -58,6 +58,9 @@ const filterBlocks = () => {
     return
   }
 
+  // log group
+  console.group('Block whitelist')
+
   // Blacklist some core and embed blocks
   getBlockTypes().forEach(block => {
     // Get namespace and block name
@@ -65,15 +68,22 @@ const filterBlocks = () => {
 
     // Remove core blocks if they're not in the whitelist
     if (namespace === 'core' && coreWhitelist.indexOf(name) === -1) {
+      console.info('Removed non-whitelisted embed block %c%s', 'font-weight: bold', block.name)
       unregisterBlockType(block.name)
       return
     }
 
     // Remove embeds if they're not in the whitelist (GDPR)
     if (namespace === 'core-embed' && embedWhitelist.indexOf(name) === -1) {
+      console.info('Removed post-level non-whitelisted block %c%s', 'font-weight: bold', block.name)
       unregisterBlockType(block.name)
+      return
     }
+
+    console.log('Block %s is allowed to exist', block.name)
   })
+
+  console.groupEnd()
 }
 
 const bindFilter = () => {
