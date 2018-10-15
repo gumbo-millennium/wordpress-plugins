@@ -15,7 +15,7 @@ const { RichText, MediaUpload } = wp.editor
 // Metadata
 const meta = {
   title: 'Leden citaat',
-  icon: svg('comment')
+  icon: svg('quote')
 }
 
 // Attributes

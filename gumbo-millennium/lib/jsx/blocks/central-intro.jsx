@@ -15,7 +15,7 @@ const { RichText } = wp.editor
 // Metadata
 const meta = {
   title: 'Centrale pagina intro',
-  icon: svg('question')
+  icon: svg('info')
 }
 
 // Attributes

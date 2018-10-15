@@ -16,7 +16,7 @@ const { RichText } = wp.editor
 // Metadata
 const meta = {
   title: 'Call to Action blok',
-  icon: svg('bullseye')
+  icon: svg('call-to-action')
 }
 
 // Attributes

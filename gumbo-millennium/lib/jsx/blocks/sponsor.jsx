@@ -12,7 +12,7 @@ import svg from './../helpers/svg'
 // Metadata
 const meta = {
   title: 'Sponsor',
-  icon: svg('ad')
+  icon: svg('sponsor')
 }
 
 // Attributes

@@ -16,7 +16,7 @@ const { times } = window.lodash
 // Metadata
 const meta = {
   title: 'Unieke verkooppunten',
-  icon: svg('trophy')
+  icon: svg('star')
 }
 
 // Attributes
