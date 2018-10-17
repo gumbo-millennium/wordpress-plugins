@@ -1,0 +1,44 @@
+///
+// Heroes - Large styling (page-filling)
+//
+// @author Roelof Roos <github@roelof.io>
+// @license MPL-2.0
+///
+
+// Large banner
+.hero--large .hero__editor-inner {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+// Large banner header
+.hero--large .hero__header {
+  font-size: 2.75rem;
+  font-weight: 300;
+
+  @include media-breakpoint-up(md) {
+    max-width: 80%;
+    font-size: 3rem;
+  }
+}
+
+// Large banner lead
+.hero--large .hero__lead {
+  margin-top: 1.5rem;
+
+  @include media-breakpoint-up(md) {
+    max-width: 480px;
+  }
+}
+
+// Large banner call-to-action
+.hero--large .hero__cta {
+  margin-top: 2rem;
+  padding: 1rem 3rem;
+  text-align: center;
+  font-weight: 600;
+
+  @include media-breakpoint-up(md) {
+    text-align: initial;
+  }
+}

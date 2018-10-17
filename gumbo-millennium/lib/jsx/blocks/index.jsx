@@ -5,7 +5,7 @@
  * @license MPL-2.0
  */
 
-import registerBanner from './banner'
+import registerHero from './hero'
 import registerCentralIntro from './central-intro'
 import registerCtaBanner from './cta-banner'
 import registerSponsor from './sponsor'
@@ -15,9 +15,9 @@ import registerUniqueSellingPoints from './unique-selling-points'
 
 export default function () {
   // Register blocks
-  registerBanner()
   registerCentralIntro()
   registerCtaBanner()
+  registerHero()
   registerSponsor()
   registerTestimonial()
   registerUniqueSellingPoint()

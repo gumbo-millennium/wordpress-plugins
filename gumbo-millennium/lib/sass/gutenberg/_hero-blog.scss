@@ -1,0 +1,31 @@
+///
+// Heroes - Blog styling (only the heading)
+//
+// @author Roelof Roos <github@roelof.io>
+// @license MPL-2.0
+///
+
+// Blog banner
+.hero--blog .hero__editor-inner {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  text-align: center;
+}
+
+// Blog banner header
+.hero--blog .hero__header {
+  font-family: "Zilla Slab", "Noto Serif", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 1.75rem;
+
+  @include media-breakpoint-up(md) {
+    max-width: 70%;
+    text-align: initial;
+    font-size: 1.875rem;
+  }
+}
+
+// Blog banner lead and call-to-action
+.hero--blog .hero__lead,
+.hero--blog .hero__cta {
+  display: none;
+}

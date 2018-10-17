@@ -1,0 +1,50 @@
+///
+// Heroes - inner editor node
+//
+// @author Roelof Roos <github@roelof.io>
+// @license MPL-2.0
+///
+
+.hero__editor-inner {
+  position: relative;
+  padding: 3rem;
+  background-color: rgba(color('white'), 0);
+  transition: background-color .15s ease-out;
+
+  // Mosaic cover
+  .hero--with-cover & {
+    background-image: url('#{$path-svg}/mosaic.svg');
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    background-size: cover;
+  }
+
+  &::after {
+    opacity: 0;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+
+    // Add padding
+    padding: .4rem .8rem;
+    background-color: #{theme-color('brand')};
+    color: #{color('white')};
+
+    font-family: $font-body;
+    font-size: .6rem;
+
+    // Hide when not white
+    transition: opacity .15s ease-out;
+
+    // Explain purpose
+    content: 'Editor overlay, niet zichtbaar op website';
+  }
+
+  .is-selected .hero--with-image & {
+    background-color: rgba(color('white'), 0.8);
+
+    &::after {
+      opacity: 1;
+    }
+  }
+}

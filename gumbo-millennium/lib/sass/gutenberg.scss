@@ -5,9 +5,27 @@
 // @license MPL-2.0
 ///
 
+// Load some Bootstrap mixins
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins/breakpoints";
+
+// Load shared variables
+@import "variables";
+
+// Load Gutenberg functions
+@import "gutenberg/functions";
+
 // Load Gutenberg items
 @import "gutenberg/sponsor-placeholder";
 @import "gutenberg/central-intro";
 @import "gutenberg/cta-banner";
 @import "gutenberg/unique-selling-points";
 @import "gutenberg/testimonials";
+
+// Heroes
+@import "gutenberg/hero";
+@import "gutenberg/hero-inner";
+@import "gutenberg/hero-large";
+@import "gutenberg/hero-medium";
+@import "gutenberg/hero-blog";

@@ -6,40 +6,6 @@
  */
 
 const icons = {
-  'banner-icon': {
-    paths: [
-      [false, 'M24 24H0V0h24v24z'],
-      [true, 'M21 3H3C2 3 1 4 1 5v14c0 1.1.9 2 2 2h18c1 0 2-1 2-2V5c0-1-1-2-2-2zM5 17l3.5-4.5 2.5 3.01L14.5 11l4.5 6H5z']
-    ]
-  },
-  // Large banner (full height)
-  'banner-large': {
-    paths: [
-      [false, 'M0 0h24v24H0z'],
-      [true, 'M19 4H5c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H5V6h14v12z']
-    ]
-  },
-  // Medium banner
-  'banner-medium': {
-    paths: [
-      [false, 'M0 0h24v24H0z'],
-      [true, 'M19 5H5c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 12H5V7h14v10z']
-    ]
-  },
-  // Small banner (short)
-  'banner-small': {
-    paths: [
-      [false, 'M0 0h24v24H0z'],
-      [true, 'M19 7H5c-1.1 0-2 .9-2 2v6c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2zm0 8H5V9h14v6z']
-    ]
-  },
-  // Outline of a banner
-  'banner-size': {
-    paths: [
-      [false, 'M0 0h24v24H0z'],
-      [true, 'M3 5v4h2V5h4V3H5c-1.1 0-2 .9-2 2zm2 10H3v4c0 1.1.9 2 2 2h4v-2H5v-4zm14 4h-4v2h4c1.1 0 2-.9 2-2v-4h-2v4zm0-16h-4v2h4v4h2V5c0-1.1-.9-2-2-2z']
-    ]
-  },
   // Board group, contains board members
   'board-group': {
     paths: [
@@ -70,6 +36,40 @@ const icons = {
     paths: [
       [true, 'M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.62 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67zM11.71 19c-1.78 0-3.22-1.4-3.22-3.14 0-1.62 1.05-2.76 2.81-3.12 1.77-.36 3.6-1.21 4.62-2.58.39 1.29.59 2.65.59 4.04 0 2.65-2.15 4.8-4.8 4.8z'],
       [false, 'M0 0h24v24H0z']
+    ]
+  },
+  'hero-icon': {
+    paths: [
+      [false, 'M24 24H0V0h24v24z'],
+      [true, 'M21 3H3C2 3 1 4 1 5v14c0 1.1.9 2 2 2h18c1 0 2-1 2-2V5c0-1-1-2-2-2zM5 17l3.5-4.5 2.5 3.01L14.5 11l4.5 6H5z']
+    ]
+  },
+  // Large hero (full height)
+  'hero-large': {
+    paths: [
+      [false, 'M0 0h24v24H0z'],
+      [true, 'M19 4H5c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H5V6h14v12z']
+    ]
+  },
+  // Medium hero
+  'hero-medium': {
+    paths: [
+      [false, 'M0 0h24v24H0z'],
+      [true, 'M19 5H5c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 12H5V7h14v10z']
+    ]
+  },
+  // Small hero (short)
+  'hero-small': {
+    paths: [
+      [false, 'M0 0h24v24H0z'],
+      [true, 'M19 7H5c-1.1 0-2 .9-2 2v6c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2zm0 8H5V9h14v6z']
+    ]
+  },
+  // Outline of a hero
+  'hero-size': {
+    paths: [
+      [false, 'M0 0h24v24H0z'],
+      [true, 'M3 5v4h2V5h4V3H5c-1.1 0-2 .9-2 2zm2 10H3v4c0 1.1.9 2 2 2h4v-2H5v-4zm14 4h-4v2h4c1.1 0 2-.9 2-2v-4h-2v4zm0-16h-4v2h4v4h2V5c0-1.1-.9-2-2-2z']
     ]
   },
   // Info
