@@ -6,7 +6,6 @@ namespace Gumbo\Plugin\Fields;
 use Philo\Blade\Blade;
 use Illuminate\View\View;
 
-
 /**
  * A dynamic field, used to render extra fields in meta boxes
  *
