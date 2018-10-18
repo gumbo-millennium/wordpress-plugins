@@ -6,6 +6,7 @@
  */
 
 // Import objects
+import overrideCoreBlocks from './helpers/core-wrapper'
 import filterBlocks from './whitelist'
 import registerBlocks from './blocks'
 
@@ -15,6 +16,9 @@ import registerBlocks from './blocks'
 
 // Filter blocks
 filterBlocks()
+
+// Wrap core blocks in .container
+overrideCoreBlocks()
 
 /*
   BLOCK REGISTRATION
