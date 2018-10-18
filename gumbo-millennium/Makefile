@@ -45,9 +45,11 @@ gumbo-millennium.zip:
 	# Zip files
 	zip -r \
 		temp/new.zip \
+		cache/ \
 		dist/ \
 		src/ \
 		vendor/ \
+		views/ \
 		LICENSE.md \
 		README.md
 
