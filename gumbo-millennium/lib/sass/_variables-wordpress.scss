@@ -1,0 +1,12 @@
+///
+// WordPress variables
+//
+// @link https://github.com/WordPress/gutenberg/blob/master/assets/stylesheets/_variables.scss
+///
+
+// Blocks
+$wp-block-padding: 14px;
+$block-spacing: 4px;
+$wp-block-side-ui-width: $wp-block-padding * 2;
+$wp-block-side-ui-clearance: $block-spacing / 2;
+$wp-block-container-side-padding: $wp-block-side-ui-width + $wp-block-padding + 2 * $wp-block-side-ui-clearance;

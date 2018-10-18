@@ -8,21 +8,10 @@
 .central-intro {
   padding: 5.75rem 0;
 
-  &--dark {
-    // background-color: #{theme-color-level('secondary', -9)};
-    background-color: #d5d7d9;
-  }
-
-  &--brand {
-    // background-color: #{theme-color-level('brand', -9)};
-    background-color: #b8dbb8;
-  }
-
   &__title {
     position: relative;
     text-align: center;
-    // font-family: $font-header;
-    font-family: "Montserrat", "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-family: $font-header;
     font-size: 20px;
     font-weight: normal;
     text-transform: uppercase;
@@ -31,13 +20,11 @@
   &__divider {
     width: 130px;
     margin: 35px auto;
-    // border-top: 2px solid rgba(theme-color('dark'), 0.2);
-    border-top: 2px solid rgba(34, 34, 34, 0.2);
+    border-top: 2px solid rgba(theme-color('dark'), 0.2);
   }
 
   &__content {
-    // color: #{theme-color-level('dark', -2)};
-    color: #454545;
+    color: #{theme-color-level('dark', -2)};
     text-align: center;
     font-size: 1rem;
     line-height: 1.75rem;

@@ -5,74 +5,84 @@
 // @license MPL-2.0
 ///
 
-.cta-banner {
-  display: block;
+// Make the banner ultra-wide too
+@include make-wide('cta-banner');
 
-  // Spaces
+.cta-banner {
   padding: 3.75rem 0;
 
-  // Decoration
-  border: 0 solid #c9ccce;
-  border-width: 1px 0;
-  background: #bdc1c3;
-
-  @media (min-width: 768px) {
+  &__container {
     display: flex;
-    flex-flow: row nowrap;
+    flex-flow: column nowrap;
     align-items: stretch;
-    justify-items: center;
+    max-width: 1100px;
+    margin: 0 auto;
+
+    @include media-breakpoint-up(md) {
+      flex-flow: row nowrap;
+      align-items: stretch;
+      justify-items: center;
+    }
+
+    @include media-breakpoint-up(lg) {
+      max-width: 1100px;
+    }
   }
 
   &__text-container {
     display: flex;
-    flex: 0 1 100%;
     flex-flow: column nowrap;
-    align-items: flex-start;
-    justify-content: center;
+    align-items: stretch;
+    justify-content: flex-start;
 
     // Keep some sane distrance from the bottom
     padding-bottom: 1.5rem;
-    text-align: center;
 
-    @media (min-width: 768px) {
-      flex-shrink: 1;
+    @include media-breakpoint-up(md) {
+      flex: 1 auto;
+
+      // Shift padding to the right
       padding-right: 5em;
       padding-bottom: 0;
-      text-align: left;
+    }
+  }
+
+  &__link-container {
+    @include media-breakpoint-up(md) {
+      display: flex;
+      flex: 0 auto;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  &__text-primary,
+  &__text-secondary,
+  &__btn {
+    text-align: center;
+
+    @include media-breakpoint-up(md) {
+      text-align: initial;
     }
   }
 
   &__text-primary {
     display: block;
-    color: #fff;
     font-size: 1.125rem;
     font-weight: 600;
-    text-shadow: 1px 1px #595f64;
   }
 
   &__text-secondary {
     margin-top: 6px;
-    color: #3d9c3d;
     font-size: 16px;
   }
 
   &__btn {
-    align-self: center;
-    justify-self: center;
-
     // Alter some Bootstrap rules
     padding: 1.1rem 2rem;
-    border-color: #c9ccce;
+    border: 1px solid #{theme-color('brand')};
     border-radius: 0.5rem;
     background-color: transparent;
-    color: #c9ccce;
-    line-height: 20px;
-
-    &:focus,
-    &:hover {
-      border-color: #fff;
-      background-color: #a6aaad;
-      color: #fff;
-    }
+    line-height: 1.25rem;
   }
 }

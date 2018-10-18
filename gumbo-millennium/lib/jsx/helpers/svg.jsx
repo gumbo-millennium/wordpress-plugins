@@ -79,6 +79,20 @@ const icons = {
       [true, 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z']
     ]
   },
+  // Key selling point
+  'key-selling-point': {
+    paths: [
+      [true, 'M22 9.24l-7.19-.62L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.63-7.03L22 9.24zM12 15.4l-3.76 2.27 1-4.28-3.32-2.88 4.38-.38L12 6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28L12 15.4z'],
+      [false, 'M0 0h24v24H0z']
+    ]
+  },
+  // Key selling points
+  'key-selling-points': {
+    paths: [
+      [false, 'M0 0h24v24H0z'],
+      [true, 'M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm4.24 16L12 15.45 7.77 18l1.12-4.81-3.73-3.23 4.92-.42L12 5l1.92 4.53 4.92.42-3.73 3.23L16.23 18z']
+    ]
+  },
   // Quote / comment
   quote: {
     paths: [
@@ -140,8 +154,6 @@ const getIconProperties = iconName => {
  * @returns {null|Function}
  */
 const buildIcon = (iconName, size = null) => {
-  console.log('Called with %o', [iconName, size])
-
   let props = getIconProperties(iconName)
 
   if (size) {

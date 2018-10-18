@@ -6,7 +6,9 @@
  */
 
 // Imports
+import { findClosestImageSize } from '../helpers/image-helper'
 import { registerBlockType } from '../helpers/gumbo'
+import svg from './../helpers/svg'
 
 // Constant imports
 const { RichText, MediaUpload } = wp.editor
@@ -14,6 +16,7 @@ const { RichText, MediaUpload } = wp.editor
 // Metadata
 const meta = {
   title: 'Uniek verkooppunt',
+  icon: svg('key-selling-point'),
 
   // Only as parent of the USPs block
   parent: ['gumbo/unique-selling-points', 'core/columns']
@@ -22,10 +25,12 @@ const meta = {
 // Attributes
 const attributes = {
   title: {
-    source: 'text',
+    type: 'string',
+    source: 'html',
     selector: '.unique-selling-points__feature-title'
   },
   content: {
+    type: 'string',
     source: 'html',
     selector: '.unique-selling-points__feature-desc'
   },
@@ -40,17 +45,17 @@ const attributes = {
   }
 }
 
-// List of styles
-const styles = []
-
 // Edit method (editor-visible HTML)
 const edit = ({ attributes, className, setAttributes }) => {
   const onSelectImage = media => {
-    if (!media || !media.url) {
-      setAttributes({ src: undefined, id: undefined })
-      return
-    }
-    setAttributes({ src: media.url, id: media.id })
+    // Find properly scaled media
+    const scaledMedia = findClosestImageSize(media, 32)
+
+    // Sets the attributes
+    setAttributes({
+      src: scaledMedia.url ? scaledMedia.url : null,
+      id: scaledMedia.url ? scaledMedia.id : null
+    })
   }
 
   let iconPlaceholder
@@ -98,13 +103,18 @@ const edit = ({ attributes, className, setAttributes }) => {
 
 // Save method (stored HTML)
 const save = function ({ attributes }) {
-  return <div className="col-md-6 unique-selling-points__feature">
-    <img src={attributes.src} className="unique-selling-points__feature-icon" />
-    <section className="unique-selling-points__feature-inner">
+  const icon = attributes.src ? (
+    <img role="presentation" src={attributes.src} className="unique-selling-points__feature-icon" />
+  ) : (
+    <div role="presentation" className="unique-selling-points__feature-icon unique-selling-points__feature-icon--placeholder" />
+  )
+  return <section className="col-md-6 unique-selling-points__feature">
+    {icon}
+    <div className="unique-selling-points__feature-inner">
       <RichText.Content tagName="h4" className="unique-selling-points__feature-title" value={attributes.title} />
       <RichText.Content tagName="p" value={attributes.content} className="unique-selling-points__feature-desc" />
-    </section>
-  </div>
+    </div>
+  </section>
 }
 
 // Publish block
@@ -112,7 +122,6 @@ export default () => {
   registerBlockType('gumbo/unique-selling-point', {
     ...meta,
     attributes,
-    styles,
     edit,
     save
   })

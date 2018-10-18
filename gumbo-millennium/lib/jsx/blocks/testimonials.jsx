@@ -6,30 +6,36 @@
  */
 
 // Imports
+import { findClosestImageSize } from '../helpers/image-helper'
 import { registerBlockType } from '../helpers/gumbo'
 import svg from './../helpers/svg'
 
 // Constant imports
+const { Dashicon } = wp.components
 const { RichText, MediaUpload } = wp.editor
 
 // Metadata
 const meta = {
   title: 'Leden citaat',
-  icon: svg('quote')
+  icon: svg('quote'),
+  keywords: ['quote', 'cite']
 }
 
 // Attributes
 const attributes = {
   content: {
+    type: 'string',
     source: 'html',
     selector: '.testimonials__quote'
   },
   author: {
-    source: 'text',
+    type: 'string',
+    source: 'html',
     selector: '.testimonials__author-name'
   },
   company: {
-    source: 'text',
+    type: 'string',
+    source: 'html',
     selector: '.testimonials__author-company'
   },
   id: {
@@ -38,44 +44,50 @@ const attributes = {
   photo: {
     type: 'string',
     source: 'attribute',
-    attribute: 'src',
+    attribute: 'data-photo',
     selector: '.testimonials__photo'
   }
 }
 
-// List of styles
-const styles = [
-  { name: 'light', label: 'Licht', isDefault: true },
-  { name: 'regular', label: 'Normaal' },
-  { name: 'dark', label: 'Donker' },
-  { name: 'brand', label: 'Gumbo Groen' }
-]
-
 // Edit method (editor-visible HTML)
 const edit = ({ attributes, className, setAttributes }) => {
+  /**
+   * Finds the properly sized media for this element
+   * @param {object} media
+   */
   const onSelectImage = media => {
-    if (!media || !media.url) {
-      setAttributes({ photo: undefined, id: undefined })
-      return
-    }
-    setAttributes({ photo: media.url, id: media.id })
+    // Find properly scaled media
+    const scaledMedia = findClosestImageSize(media, 64)
+
+    // Sets the attributes
+    setAttributes({
+      photo: scaledMedia.url ? scaledMedia.url : null,
+      id: scaledMedia.url ? scaledMedia.id : null
+    })
   }
 
-  let iconPlaceholder
-  iconPlaceholder = ({ open }) => {
-    if (!attributes.photo) {
-      return <div
-        className="testimonials__photo testimonials__photo--placeholder"
-        onClick={open} />
-    } else {
-      return <img
-        src={attributes.photo}
-        className="testimonials__photo"
-        onClick={open} />
-    }
+  /**
+   * Shows an icon on the media selector
+   *
+   * @param {object} param0
+   */
+  const iconPlaceholder = ({ open }) => {
+    return attributes.photo ? (
+      <div data-photo={attributes.photo} className="testimonials__photo" onClick={open} style={{
+        'background-image': `url("${attributes.photo}")`
+      }} />
+    ) : (
+      <div
+        className="testimonials__photo testimonials__photo--placeholder" onClick={open}>
+        <Dashicon icon="format-image" />
+      </div>
+    )
   }
 
-  let icon = <MediaUpload
+  /**
+   * Icon picker, invisibly wraps the containing node
+   */
+  const icon = <MediaUpload
     onSelect={onSelectImage}
     type="image"
     value={attributes.id}
@@ -115,11 +127,17 @@ const edit = ({ attributes, className, setAttributes }) => {
 
 // Save method (stored HTML)
 const save = ({ attributes }) => {
-  return <div className="testimonials">
+  const photo = attributes.photo ? (
+    <div data-photo={attributes.photo} className="testimonials__photo" style={{
+      'background-image': `url("${attributes.photo}")`
+    }} />
+  ) : null
+
+  return <div className="gumbo-shaded-block testimonials">
     <div className="container">
       <RichText.Content tagName="div" className="testimonials__quote" value={attributes.content} />
       <div className="testimonials__meta">
-        <img src={attributes.photo} className="testimonials__photo" />
+        {photo}
         <div className="testimonials__author">
           <RichText.Content tagName="span" value={attributes.author} className="testimonials__author-name" />
           <RichText.Content tagName="span" value={attributes.company} className="testimonials__author-company" />
@@ -134,7 +152,6 @@ export default () => {
   registerBlockType('gumbo/testimonials', {
     ...meta,
     attributes,
-    styles,
     save,
     edit
   })

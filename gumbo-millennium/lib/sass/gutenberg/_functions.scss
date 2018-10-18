@@ -5,8 +5,18 @@
 // @license MPL-2.0
 ///
 
+@mixin make-wide($block-name) {
+  @include media-breakpoint-up(lg) {
+    .gutenberg-editor-page .editor-block-list__block[data-type="gumbo/#{$block-name}"] {
+      max-width: 1100px;
+    }
+  }
+}
+
 @mixin make-full-width($block-name) {
-  .gutenberg-editor-page .editor-block-list__block[data-type="gumbo/#{$block-name}"] {
-    max-width: 1100px;
+  @include media-breakpoint-up(lg) {
+    .gutenberg-editor-page .editor-block-list__block[data-type="gumbo/#{$block-name}"] {
+      max-width: unset;
+    }
   }
 }

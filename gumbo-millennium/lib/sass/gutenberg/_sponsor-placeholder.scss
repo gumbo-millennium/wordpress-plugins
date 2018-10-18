@@ -5,13 +5,15 @@
 // @license MPL-2.0
 ///
 
+// Make sponsors ultra-wide
+@include make-wide('sponsor');
+
 .sponsor-placeholder {
   padding: 5.75rem 3rem;
 
   // Show grey template
-  border: 2px dashed #e9ecef;
-  background-color: #bdc1c3;
-  color: #6c757d;
+  border: 2px dashed #{gray('400')};
+  color: #{gray('500')};
 
   // Align center
   text-align: center;

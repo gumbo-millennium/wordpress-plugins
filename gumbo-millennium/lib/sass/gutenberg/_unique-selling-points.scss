@@ -5,11 +5,10 @@
 // @license MPL-2.0
 ///
 
-.unique-selling-points {
-  // border-top: 1px solid #{gray('200')};
-  // border-bottom: 1px solid #{gray('200')};
-  // background: #{gray('100')};
+// Always make board members a tad wider
+@include make-wide('unique-selling-points');
 
+.unique-selling-points {
   &__header {
     position: relative;
 
@@ -21,14 +20,12 @@
       width: 87%;
       height: 1px;
       margin: auto;
-      // background-color: #{gray('400')};
-      background-color: #ced4da;
+      background-color: #{gray('400')};
       content: '';
     }
 
     &-title {
-      // color: #{gray('700')};
-      color: #495057;
+      color: #{gray('700')};
       text-align: center;
       font-size: 23px;
       font-weight: normal;
@@ -42,11 +39,16 @@
       width: 75%;
       margin: 0 auto;
       margin-top: 30px;
-      // color: #{gray('600')};
-      color: #6c757d;
+      color: #{gray('600')};
       text-align: center;
       font-size: 15px;
       line-height: 25px;
+    }
+  }
+
+  @include make-wp-columns {
+    @include media-breakpoint-up(md) {
+      flex-basis: percentage(6 / 12);
     }
   }
 
@@ -84,8 +86,7 @@
       &--placeholder {
         width: 2rem;
         height: 2rem;
-        // border: 1px dotted #{gray('700')};
-        border: 1px dotted #495057;
+        border: 1px dotted #{gray('700')};
       }
 
       &--editor &-icon {
@@ -99,16 +100,14 @@
 
     &-title {
       margin-top: 0;
-      // color: #{theme-color-level('brand', 2)};
-      color: #006900;
+      color: #{theme-color-level('brand', 2)};
       font-size: 17px;
     }
 
     &-desc {
       width: 95%;
       margin-top: 18px;
-      // color: #{gray('600')};
-      color: #6c757d;
+      color: #{gray('600')};
       font-size: 15px;
       line-height: 24px;
     }

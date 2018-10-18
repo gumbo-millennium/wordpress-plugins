@@ -5,18 +5,25 @@
 // @license MPL-2.0
 ///
 
+// Load shared variables
+@import "variables";
+
 // Load some Bootstrap mixins
 @import "~bootstrap/scss/functions";
 @import "~bootstrap/scss/variables";
-@import "~bootstrap/scss/mixins/breakpoints";
+@import "~bootstrap/scss/mixins";
 
-// Load shared variables
-@import "variables";
+// Load editor style
+@import "editor/all";
 
 // Load Gutenberg functions
 @import "gutenberg/functions";
 
+// Load Gutenberg mixins
+@import "mixins/all";
+
 // Load Gutenberg items
+@import "gutenberg/board-members";
 @import "gutenberg/sponsor-placeholder";
 @import "gutenberg/central-intro";
 @import "gutenberg/cta-banner";

@@ -1,0 +1,38 @@
+///
+// Makes the given block class into a block that can contain column nodes
+//
+// @author Roelof Roos <github@roelof.io>
+// @license MPL-2.0
+///
+
+/// Makes WordPress columns for this node, use the content to specify breakpoints and
+/// flex-basis widths.
+@mixin make-wp-columns {
+  &:not(&--disable-columns) .editor-inner-blocks > .editor-block-list__layout {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: flex-start;
+
+    & > [data-type="core/column"],
+    & > [data-type^="gumbo/"] {
+      flex: 0;
+      flex-basis: 100%;
+
+      @content;
+    }
+
+    & > .block-list-appender {
+      flex: 0;
+      flex-basis: 100%;
+      margin-top: 25px;
+      margin-bottom: 25px;
+
+      // Add margins for the left and right sides
+      padding-right: 1rem; // Wordpress paddings, sort-of
+      padding-left: 1rem; // Wordpress paddings, sort-of
+
+      @content;
+    }
+  }
+}

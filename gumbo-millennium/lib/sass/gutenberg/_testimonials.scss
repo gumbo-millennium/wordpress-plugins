@@ -15,8 +15,7 @@
   &__quote {
     position: relative;
     margin: 0 2rem;
-    // color: #{theme-color-level('brand', -5)};
-    color: #66b166;
+    color: #{theme-color-level('brand', -5)};
     text-align: center;
 
     font-size: 22px;
@@ -35,10 +34,8 @@
     &::after {
       display: inline-block;
       position: absolute;
-      // color: #{theme-color-level('brand', -6)};
-      // font-family: $spacial-font-georgia;
-      color: #7abb7a;
-      font-family: "Noto Serif", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+      color: #{theme-color-level('brand', -6)};
+      font-family: $font-body-story;
       font-size: 3.75rem;
     }
 
@@ -79,17 +76,19 @@
     width: 65px;
     height: 65px;
     border-radius: 50%;
-    // background-color: theme-color-level('brand', -6);
-    // background-image: url("#{$path-svg}/logo-glass-only-white.svg");
-    background-color: #7abb7a;
+    background-color: theme-color-level('brand', -6);
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 30px auto;
+    background-size: cover;
 
     &--placeholder {
-      // border: 1px dotted #{gray('700')};
-      border: 1px dotted #495057;
-      background-color: #8e9398;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      // Surround with a dotted line, nothing else
+      border: 1px dotted #{gray('700')};
+      background-color: transparent;
     }
   }
 
@@ -103,8 +102,7 @@
     align-content: space;
     justify-content: start;
     margin-left: 15px;
-    // color: #{theme-color-level('secondary', -3)};
-    color: #8e9398;
+    color: #{theme-color-level('secondary', -3)};
     text-align: left;
 
     &-name {
@@ -113,8 +111,7 @@
 
     &-company {
       margin-top: 3px;
-      // color: #{theme-color-level('secondary', -5)};
-      color: #a6aaad;
+      color: #{theme-color-level('secondary', -5)};
       font-size: 13px;
     }
   }

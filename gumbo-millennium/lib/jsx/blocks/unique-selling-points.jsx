@@ -16,23 +16,22 @@ const { times } = window.lodash
 // Metadata
 const meta = {
   title: 'Unieke verkooppunten',
-  icon: svg('star')
+  icon: svg('key-selling-points')
 }
 
 // Attributes
 const attributes = {
   title: {
-    source: 'text',
+    type: 'string',
+    source: 'html',
     selector: '.unique-selling-points__header-title'
   },
   subtitle: {
+    type: 'string',
     source: 'html',
     selector: '.unique-selling-points__header-text'
   }
 }
-
-// List of styles
-const styles = []
 
 // Edit definitions
 const ALLOWED_BLOCKS = ['gumbo/unique-selling-point']
@@ -63,7 +62,6 @@ const edit = ({ attributes, className, setAttributes }) => {
           <InnerBlocks
             allowedBlocks={ALLOWED_BLOCKS}
             template={TEMPLATE}
-            templateLock="insert"
           />
         </div>
       </section>
@@ -73,7 +71,7 @@ const edit = ({ attributes, className, setAttributes }) => {
 
 // Save method (stored HTML)
 const save = function ({ attributes }) {
-  return <div className="unique-selling-points">
+  return <div className="gumbo-shaded-block unique-selling-points">
     <div className="container">
       <header className="unique-selling-points__header">
         <RichText.Content
@@ -101,7 +99,6 @@ export default () => {
   registerBlockType('gumbo/unique-selling-points', {
     ...meta,
     attributes,
-    styles,
     edit,
     save
   })

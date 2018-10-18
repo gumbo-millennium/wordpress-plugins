@@ -18,9 +18,6 @@ const meta = {
 // Attributes
 const attributes = {}
 
-// List of styles
-const styles = []
-
 // Edit method (editor-visible HTML)
 const edit = ({ className }) => {
   return <p className="sponsor-placeholder">Sponsor advertentie</p>
@@ -31,7 +28,6 @@ export default () => {
   registerBlockType('gumbo/sponsor', {
     ...meta,
     attributes,
-    styles,
     edit
   })
 }

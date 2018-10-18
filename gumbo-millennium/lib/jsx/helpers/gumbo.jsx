@@ -16,6 +16,7 @@ const baseConfig = {
 
   // Disable class changes
   supports: {
+    className: false,
     customClassName: false
   },
 
@@ -31,6 +32,10 @@ export function registerBlockType (name, args) {
 
   if (!args.hasOwnProperty('supports')) {
     opts.supports = { ...baseConfig.supports, ...args.supports }
+  }
+
+  if (!opts.supports.customClassName && opts.styles) {
+    console.warn('Registering block %s with no custom class support but with style support', name)
   }
 
   wpRegister(name, opts)

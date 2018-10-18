@@ -7,30 +7,36 @@
 
 // Imports
 import { registerBlockType } from '../helpers/gumbo'
-import LinkedButton from '../components/linked-button'
+// import LinkedButton from '../components/linked-button'
 import svg from './../helpers/svg'
 
 // Constant imports
-const { RichText } = wp.editor
+const { PanelBody, Toolbar } = wp.components
+const { Fragment } = wp.element
+const { BlockControls, InspectorControls, RichText, URLInputButton } = wp.editor
 
 // Metadata
 const meta = {
   title: 'Call to Action blok',
-  icon: svg('call-to-action')
+  icon: svg('call-to-action'),
+  keywords: ['cta']
 }
 
 // Attributes
 const attributes = {
-  primary: {
+  title: {
+    type: 'string',
     source: 'html',
     selector: '.cta-banner__text-primary'
   },
-  secondary: {
+  lead: {
+    type: 'string',
     source: 'html',
     selector: '.cta-banner__text-secondary'
   },
   linkText: {
-    source: 'text',
+    type: 'string',
+    source: 'html',
     selector: '.cta-banner__btn'
   },
   linkUrl: {
@@ -41,75 +47,110 @@ const attributes = {
   }
 }
 
-// List of styles
-const styles = [
-  { name: 'light', label: 'Licht', isDefault: true },
-  { name: 'regular', label: 'Normaal' },
-  { name: 'dark', label: 'Donker' },
-  { name: 'brand', label: 'Gumbo Groen' }
-]
-
 // Edit method (editor-visible HTML)
 const edit = ({ attributes, className, setAttributes }) => {
-  return <div className="cta-banner cta-banner--editor">
+  const { linkText, linkUrl, title, lead } = attributes
+
+  const changeUrl = (url, post) => {
+    if (!linkText && post && post.title) {
+      setAttributes({ linkText: post.title })
+    }
+    setAttributes({ linkUrl: url })
+  }
+
+  const controls = (
+    <Fragment>
+      <BlockControls>
+        <Toolbar>
+          <URLInputButton
+            url={linkUrl || ''}
+            onChange={changeUrl}
+            placeholder='https://'
+          />
+        </Toolbar>
+      </BlockControls>
+      <InspectorControls>
+        <PanelBody title="Fuck a duck">
+
+        </PanelBody>
+      </InspectorControls>
+    </Fragment>
+  )
+
+  const textFields = (
     <div className="cta-banner__text-container">
       <RichText
         tagName="strong"
         multiline=""
         className="cta-banner__text-primary"
         placeholder="Ready to join the action?"
-        value={attributes.primary}
-        onChange={primary => setAttributes({ primary })}
+        value={title}
+        onChange={title => setAttributes({ title })}
       />
       <RichText
         tagName="p"
         multiline=""
         className="cta-banner__text-secondary"
         placeholder="What's really holding you back?"
-        value={attributes.secondary}
-        onChange={secondary => setAttributes({ secondary })}
+        value={lead}
+        onChange={lead => setAttributes({ lead })}
       />
     </div>
+  )
 
+  const ctaButton = (
     <div className="cta-banner__link-container">
-      <LinkedButton
-        tagName="a"
+      <RichText
+        tagName="div"
         multiline=""
         className="cta-banner__btn"
         placeholder="Join us"
-        title={attributes.linkText}
-        url={attributes.linkUrl}
-        onTitleChange={linkText => setAttributes({ linkText })}
-        onUrlChange={linkUrl => setAttributes({ linkUrl })}
+        value={linkText}
+        onChange={linkText => setAttributes({ linkText })}
       />
     </div>
-  </div>
+  )
+
+  const input = (
+    <div className="cta-banner cta-banner--editor">
+      <div className="cta-banner__container">
+        {textFields}
+        {ctaButton}
+      </div>
+    </div>
+  )
+
+  return <Fragment>
+    {controls}
+    {input}
+  </Fragment>
 }
 
 // Save method (stored HTML)
 const save = ({ attributes }) => {
+  const {title, lead, linkUrl: url, linkText: text} = attributes
+
   return <div className="cta-banner">
     <div className="container cta-banner__container">
       <div className="cta-banner__text-container">
-        <RichText.Content tagName="strong" className="cta-banner__text-primary" value={attributes.primary} />
-        <RichText.Content tagName="p" className="cta-banner__text-secondary" value={attributes.secondary} />
+        <RichText.Content tagName="strong" className="cta-banner__text-primary" value={title} />
+        <RichText.Content tagName="p" className="cta-banner__text-secondary" value={lead} />
       </div>
 
       <RichText.Content
         tagName="a"
         className="cta-banner__btn"
-        href={attributes.linkUrl}
-        value={attributes.linkText} />
+        href={url}
+        value={text} />
     </div>
   </div>
 }
 
 // Publish block
 export default () => {
-  registerBlockType('gumbo/cta-block', {
+  registerBlockType('gumbo/cta-banner', {
     ...meta,
     attributes,
-    styles,
     save,
     edit
   })

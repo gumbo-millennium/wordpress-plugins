@@ -1,0 +1,80 @@
+///
+// Board members
+//
+// @author Roelof Roos <github@roelof.io>
+// @license MPL-2.0
+///
+
+// Always make board members a tad wider
+@include make-wide('board-members');
+
+// Start board members sass
+.board-members {
+  display: block;
+
+  &__header {
+    position: relative;
+    margin-top: 30px;
+    margin-bottom: 90px;
+    text-align: center;
+
+    &:after {
+      position: absolute;
+      right: 0;
+      bottom: -30px;
+      left: 0;
+      width: 90%;
+      height: 1px;
+      margin: auto;
+      background: #cfd1cd;
+      content: '';
+    }
+  }
+
+  &__header-text {
+    color: #1d1d1f;
+    font-size: 1.75rem;
+    font-weight: normal;
+    line-height: 2.5rem;
+
+  }
+
+  @include make-wp-columns {
+    @include media-breakpoint-up(sm) {
+      flex-basis: percentage(6 / 12);
+    }
+
+    @include media-breakpoint-up(md) {
+      flex-basis: percentage(4 / 12);
+    }
+  }
+}
+
+.board-members__member {
+  margin: .5rem 0;
+  background-color: #{gray('200')};
+  box-shadow: 2px 2px 4px rgba(gray('300'), 0.6);
+
+  &-photo {
+    background-color: #{gray('400')};
+
+    &--placeholder {
+      display: flex;
+      flex-flow: column nowrap;
+      align-items: center;
+      justify-content: center;
+      min-height: 140px;
+    }
+  }
+
+  &-name {
+    padding: .5rem 1rem;
+    color: theme-color-level('brand', -2);
+    font-size: 1.25rem;
+  }
+
+  &-role {
+    padding: 0 1rem .625rem;
+    font-size: 1rem;
+  }
+}

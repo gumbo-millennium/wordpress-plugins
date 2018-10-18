@@ -10,6 +10,7 @@
 import classnames from 'classnames'
 
 // WordPress dependencies
+import { findClosestImageSize } from '../helpers/image-helper'
 import { registerBlockType } from '../helpers/gumbo'
 import { default as svg } from './../helpers/svg'
 
@@ -163,11 +164,14 @@ const edit = ({ attributes, className, setAttributes }) => {
 
   // Define toolbar handlers
   const onSelectImage = media => {
-    if (!media || !media.url) {
-      setAttributes({ backdropUrl: undefined, backdropId: undefined })
-      return
-    }
-    setAttributes({ backdropUrl: media.url, backdropId: media.id })
+    // Find properly scaled media
+    const scaledMedia = findClosestImageSize(media, 1920, 'width')
+
+    // Sets the attributes
+    setAttributes({
+      backdropUrl: scaledMedia.url ? scaledMedia.url : null,
+      backdropId: scaledMedia.url ? scaledMedia.id : null
+    })
   }
 
   const sizeControl = (
@@ -183,7 +187,6 @@ const edit = ({ attributes, className, setAttributes }) => {
           ...control,
           isActive,
           onClick: () => {
-            console.log('Changing size from %s to %s', size, controlSize)
             setAttributes({ size: controlSize })
           }
         }

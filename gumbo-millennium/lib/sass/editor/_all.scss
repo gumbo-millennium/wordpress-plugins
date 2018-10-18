@@ -1,0 +1,37 @@
+///
+// Loads all editor tweaks
+//
+// @author Roelof Roos <github@roelof.io>
+// @license MPL-2.0
+///
+
+html {
+  -ms-overflow-style: scrollbar;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  text-size-adjust: 100%;
+}
+
+// Apply Bootstrap reset
+.editor-block-list__block {
+  color: $body-color;
+  font-family: $font-family-base;
+  font-size: $font-size-base;
+  font-weight: $font-weight-base;
+  line-height: $line-height-base;
+
+  a {
+    color: $link-color;
+    text-decoration: $link-decoration;
+    text-decoration-skip: objects;
+
+    @include hover {
+      color: $link-hover-color;
+      text-decoration: $link-hover-decoration;
+    }
+
+    // Add squigly line under broken links
+    &:not([href]) {
+      text-decoration: underline wavy #{theme-color('danger')};
+    }
+  }
+}

@@ -21,7 +21,7 @@ const meta = {
 // Attributes
 const attributes = {
   title: {
-    source: 'text',
+    source: 'html',
     selector: '.central-intro__title'
   },
   content: {
@@ -29,14 +29,6 @@ const attributes = {
     selector: '.central-intro__content'
   }
 }
-
-// List of styles
-const styles = [
-  { name: 'light', label: 'Licht', isDefault: true },
-  { name: 'regular', label: 'Normaal' },
-  { name: 'dark', label: 'Donker' },
-  { name: 'brand', label: 'Gumbo Groen' }
-]
 
 // Edit method (editor-visible HTML)
 const edit = ({ attributes, className, setAttributes }) => {
@@ -63,7 +55,7 @@ const edit = ({ attributes, className, setAttributes }) => {
 
 // Save method (stored HTML)
 const save = ({ attributes }) => {
-  return <div className="central-intro">
+  return <div className="gumbo-shaded-block central-intro">
     <div className="central-intro__container">
       <RichText.Content tagName="h3" className="central-intro__title" value={attributes.title} />
       <hr className="central-intro__divider" />
@@ -77,7 +69,6 @@ export default () => {
   registerBlockType('gumbo/central-intro', {
     ...meta,
     attributes,
-    styles,
     save,
     edit
   })

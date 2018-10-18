@@ -6,7 +6,7 @@
 ///
 
 // Make full-width
-@include make-full-width('hero');
+@include make-wide('hero');
 
 .hero {
   padding: 0;
