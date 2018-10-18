@@ -86,7 +86,7 @@ const edit = ({ attributes, className, setAttributes }) => {
   return <div className="board-members__member">
     <MediaUpload
       onSelect={onSelectImage}
-      type="image"
+      allowedTypes={['image']}
       value={attributes.id}
       render={iconPlaceholder}
     />

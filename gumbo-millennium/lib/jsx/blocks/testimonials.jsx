@@ -89,7 +89,7 @@ const edit = ({ attributes, className, setAttributes }) => {
    */
   const icon = <MediaUpload
     onSelect={onSelectImage}
-    type="image"
+    allowedTypes={['image']}
     value={attributes.id}
     render={iconPlaceholder}
   />
