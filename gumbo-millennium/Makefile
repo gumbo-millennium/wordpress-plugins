@@ -1,19 +1,19 @@
 .PHONY: plugin.zip install lint
 
 install:
-  composer install --no-progress --no-suggest -an
-  yarn install --frozen-lockfile
+	composer install --no-progress --no-suggest -an
+	yarn install --frozen-lockfile
 
 lint:
-  # Lint PHP code
-  vendor/bin/phpcs
+	# Lint PHP code
+	vendor/bin/phpcs
 
-  # Lint Sass files
-  find lib/sass -type f -name '*.scss' -print | xargs node_modules/.bin/stylelint
+	# Lint Sass files
+	find lib/sass -type f -name '*.scss' -print | xargs node_modules/.bin/stylelint
 
-  # Lint Javascript
-  find lib/ -type f -name '*.js' -print | xargs node_modules/.bin/eslint
-  find lib/ -type f -name '*.jsx' -print | xargs node_modules/.bin/eslint
+	# Lint Javascript
+	find lib/ -type f -name '*.js' -print | xargs node_modules/.bin/eslint
+	find lib/ -type f -name '*.jsx' -print | xargs node_modules/.bin/eslint
 
 plugin.zip: gumbo-millennium.zip
 	cp gumbo-millennium.zip plugin.zip
