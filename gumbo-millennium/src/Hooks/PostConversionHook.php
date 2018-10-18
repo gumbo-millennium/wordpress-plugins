@@ -80,10 +80,14 @@ class PostConversionHook extends AbstractHook
 
         // Disable error handling
         libxml_use_internal_errors(true);
-        $document = new \DOMDocument('1.0', 'utf-8');
+        $document = new \DOMDocument;
         $document->preserveWhiteSpace = false;
         $document->formatOutput = true;
-        $document->loadHTML($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD | LIBXML_NOWARNING | LIBXML_NONET);
+        $document->loadHTML(
+            // hack to make DOMDocument read the file as UTF-8
+            "<?xml encoding=\"utf-8\"?>{$content}",
+            LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD | LIBXML_NOWARNING | LIBXML_NONET
+        );
 
         // Enable error handling
         libxml_use_internal_errors(false);
@@ -94,18 +98,29 @@ class PostConversionHook extends AbstractHook
         // Get shortcodes
         $shortcodes = $this->getShortCodes($document);
 
+        // Get list of effective shortcodes
+        $nodeDeletionQueue = [];
+
         foreach ($comments as $comment) {
             $value = $comment->nodeValue;
             $value = trim($value);
 
             // Skip non-Gutenberg shortcodes
-            if (!preg_match('/^wp:gumbo\/([a-z0-9\-]+)\s*(\{.+\})?\s*\/?$/', $value, $matches)) {
+            if (!preg_match('/^(\/)?wp:gumbo\/([a-z0-9\-]+)\s*(\{.+\})?\s*\/?$/', $value, $matches)) {
                 continue;
             }
 
             // Make sure all arguments are counted for
             while (count($matches) < 3) {
                 $matches[] = null;
+            }
+
+            // Flag the node for deletion
+            $nodeDeletionQueue[] = $comment;
+
+            // If the node is an end-node, it only needs to be flagged for removal
+            if ($matches[1] === '/') {
+                continue;
             }
 
             // Get name and arguments
@@ -115,6 +130,11 @@ class PostConversionHook extends AbstractHook
             if (array_key_exists($name, $shortcodes)) {
                 $shortcodes[$name]->handle($comment, json_decode($args ?? '[]', true));
             }
+        }
+
+        // Delete all comments
+        foreach ($nodeDeletionQueue as $comment) {
+            $comment->parentNode->removeChild($comment);
         }
 
         $post->post_content_filtered = $document->saveHTML();
