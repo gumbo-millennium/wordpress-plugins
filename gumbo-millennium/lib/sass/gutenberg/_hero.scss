@@ -63,8 +63,10 @@
   }
 
   &__cta {
+    display: inline-block;
     border: 1px solid theme-color('brand');
     border-radius: .25rem;
+    background-color: theme-color-level('brand', -3);
 
     // White text color
     color: rgba(color('white'), 0.8);
@@ -87,5 +89,9 @@
   .hero__lead,
   .hero__cta {
     color: initial;
+  }
+
+  .hero__cta {
+    background-color: #{color('white')};
   }
 }

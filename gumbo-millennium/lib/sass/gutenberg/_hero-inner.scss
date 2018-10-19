@@ -40,7 +40,8 @@
     content: 'Editor overlay, niet zichtbaar op website';
   }
 
-  .is-selected .hero--with-image & {
+  .is-selected .hero--with-image &,
+  .is-typing .hero--with-image & {
     background-color: rgba(color('white'), 0.8);
 
     &::after {
