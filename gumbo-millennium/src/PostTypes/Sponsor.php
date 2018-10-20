@@ -8,19 +8,19 @@ use Gumbo\Plugin\MetaBoxes\ActivityBox;
 use Gumbo\Plugin\PostTypes\PostType;
 
 /**
-* Registers an activity type, which is used to schedule events.
+* Registers a sponsor type, used to show companies we support on the website.
 *
 * @author Roelof Roos <github@roelof.io>
 * @license MPL-2.0
 */
-class Activity extends PostType
+class Sponsor extends PostType
 {
     /**
      * {@inheritDoc}
      */
     protected function getName() : string
     {
-        return 'gumbo-activity';
+        return 'gumbo-sponsor';
     }
 
     /**
@@ -28,7 +28,7 @@ class Activity extends PostType
      */
     protected function getCapabilityName()
     {
-        return 'activity';
+        return 'sponsor';
     }
 
     /**
@@ -38,28 +38,15 @@ class Activity extends PostType
     {
         return [
             'labels' => [
-                'name' => __('Activities'),
-                'singular_name' => __('Activity')
+                'name' => __('Sponsors'),
+                'singular_name' => __('Sponsor')
             ],
             'has_archive' => true,
-            'rewrite' => ['slug' => 'activiteiten'],
+            'rewrite' => ['slug' => 'sponsoren'],
             'supports' => [
-                'title',
                 'editor',
-                'thumbnail',
-                'excerpt',
                 'revisions'
             ]
-        ];
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    protected function getMetaFields() : array
-    {
-        return [
-            ActivityBox::class
         ];
     }
 }
