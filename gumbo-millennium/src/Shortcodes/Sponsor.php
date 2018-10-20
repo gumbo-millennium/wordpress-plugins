@@ -22,12 +22,7 @@ class Sponsor extends Shortcode
         $parent = $node->parentNode;
         $next = $node->nextSibling;
 
-        $textNode = $this->text("@include('bits.sponsor')");
+        $textNode = $this->text("[sponsor]");
         $parent->insertBefore($textNode, $next);
-
-        $divNode = $this->node('div');
-        $divNode->appendChild($this->attribute('class', 'sponsor-container'));
-        $divNode->appendChild($this->attribute('data-content', 'sponsor'));
-        $parent->insertBefore($divNode, $next);
     }
 }
