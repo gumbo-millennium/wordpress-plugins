@@ -36,7 +36,7 @@ class PostConversionHook extends AbstractHook
      * @param DOMNode $node
      * @return bool
      */
-    protected static function isReflowableContainer(\DOMNode $node) : bool
+    protected static function isReflowableContainer(?\DOMNode $node) : bool
     {
         // Skip if no attributes
         if (!$node->attributes) {
