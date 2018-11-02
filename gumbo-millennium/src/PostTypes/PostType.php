@@ -71,6 +71,16 @@ abstract class PostType
     }
 
     /**
+     * Returns the filename of the SVG icon used in the menu.
+     *
+     * @return string|null
+     */
+    protected function getIconFilename() : ?string
+    {
+        return null;
+    }
+
+    /**
      * Returns a list of meta box classes, which should be registered alongside this post type.
      *
      * @return array Fully qualified class names of the meta boxes
@@ -100,11 +110,20 @@ abstract class PostType
         $name = $this->getName();
         $properties = $this->getProperties();
         $capabilityName = $this->getCapabilityName();
-        $capabilityNameArray = [];
+        $iconName = $this->getIconFilename();
 
         // Add capability name if the capability field is a string or two-index array
         if ((is_array($capabilityName) && count($capabilityName) == 2) || is_string($capabilityName)) {
             $capabilityNameArray = ['capability_type' => $capabilityName];
+        }
+
+        // Get the icon
+        $iconPath = Plugin::getPluginPath() . "/../lib/svg/{$iconName}.svg";
+        if ($iconName && file_exists($iconPath)) {
+            $additionalProperties['menu_icon'] = sprintf(
+                'data:image/svg;base64,%s',
+                file_get_contents($iconPath)
+            );
         }
 
         // Merge default, generated and custom properties

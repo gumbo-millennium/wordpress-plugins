@@ -26,9 +26,17 @@ class Sponsor extends PostType
     /**
      * {@inheritDoc}
      */
-    protected function getCapabilityName()
+    protected function getCapabilityName() : string
     {
         return 'sponsor';
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function getIconName() : string
+    {
+        // code...
     }
 
     /**
@@ -46,7 +54,11 @@ class Sponsor extends PostType
             'supports' => [
                 'editor',
                 'revisions'
-            ]
+            ],
+            'show_in_menu' => true,
+            'show_in_nav_menus' => false,
+            'exclude_from_search' => true,
+            'show_in_rest' => true
         ];
     }
 }

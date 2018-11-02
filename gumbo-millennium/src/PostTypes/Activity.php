@@ -26,7 +26,7 @@ class Activity extends PostType
     /**
      * {@inheritDoc}
      */
-    protected function getCapabilityName()
+    protected function getCapabilityName() : string
     {
         return 'activity';
     }

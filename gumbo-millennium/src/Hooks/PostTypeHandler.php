@@ -40,19 +40,38 @@ class PostTypeHandler extends AbstractHook
     }
 
     /**
+     * Provides a list of safe custom post types
+     *
+     * @return array
+     */
+    public function getPostTypes() : array
+    {
+        $postTypes = [];
+
+        // Register post types, if they're valid
+        foreach (self::POST_TYPES as $type) {
+            if (is_a($type, PostType::class, true)) {
+                $postTypes = new $type;
+            }
+        }
+
+        // Output list
+        return $postTypes;
+    }
+
+    /**
      * Registers our custom post types
      *
      * @return void
      */
     public function init() : void
     {
-        $postTypes = [];
-        // Register post types, if they're valid
-        foreach (self::POST_TYPES as $type) {
-            if (is_a($type, PostType::class, true)) {
-                $postTypes = new $type;
-                $postTypes->registerType();
-            }
+        // Ask for a list of safe post types
+        $postTypes = $this->getPostTypes();
+
+        // Register all post types
+        foreach ($postTypes as $postType) {
+            $postType->registerType();
         }
 
         // Bind after registration
