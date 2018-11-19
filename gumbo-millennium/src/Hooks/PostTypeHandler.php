@@ -4,7 +4,6 @@ declare (strict_types = 1);
 namespace Gumbo\Plugin\Hooks;
 
 use Gumbo\Plugin\PostTypes\PostType;
-use Gumbo\Plugin\PostTypes\Activity;
 use Gumbo\Plugin\PostTypes\Sponsor;
 
 /**
@@ -21,7 +20,6 @@ class PostTypeHandler extends AbstractHook
      * @var array
      */
     const POST_TYPES = [
-        Activity::class,
         Sponsor::class,
     ];
 
@@ -51,7 +49,7 @@ class PostTypeHandler extends AbstractHook
         // Register post types, if they're valid
         foreach (self::POST_TYPES as $type) {
             if (is_a($type, PostType::class, true)) {
-                $postTypes = new $type;
+                $postTypes[] = new $type;
             }
         }
 

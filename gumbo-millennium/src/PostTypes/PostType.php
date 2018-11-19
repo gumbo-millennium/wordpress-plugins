@@ -4,6 +4,7 @@ declare (strict_types = 1);
 namespace Gumbo\Plugin\PostTypes;
 
 use Gumbo\Plugin\MetaBoxes\MetaBox;
+use Gumbo\Plugin\Plugin;
 
 /**
  * Registers a single post type. Auto-filters all capabilities of a type.

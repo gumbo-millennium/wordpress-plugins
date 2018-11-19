@@ -21,6 +21,8 @@ use Gumbo\Plugin\Hooks\PostConversionHook;
 use Gumbo\Plugin\Hooks\PostTypeHandler;
 use Gumbo\Plugin\Plugin;
 use Philo\Blade\Blade;
+use Gumbo\Plugin\Hooks\LoginHandler;
+use Gumbo\Plugin\Hooks\MenuHandler;
 
 if (!defined('ABSPATH')) {
     // Decline loading the file, if we're not in a WordPress environment
@@ -42,6 +44,8 @@ $plugin->addHandler(LoopbackRestHandler::class);
 $plugin->addHandler(MetaFieldHandler::class);
 $plugin->addHandler(PostConversionHook::class);
 $plugin->addHandler(PostTypeHandler::class);
+$plugin->addHandler(LoginHandler::class);
+$plugin->addHandler(MenuHandler::class);
 
 // Bind Blade engine
 $plugin->register(Blade::class, function () {
