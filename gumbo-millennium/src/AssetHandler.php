@@ -17,10 +17,21 @@ class AssetHandler
     const SCRIPT_PREFIX = 'gumbo-millennium-plugin';
 
     /**
+     * Plugins required by Gutenberg
+     */
+    const GUTENBERG_ASSETS = [
+        'wp-blocks',
+        'wp-i18n',
+        'wp-element',
+        'wp-components',
+        'wp-editor'
+    ];
+
+    /**
      * Scripts to load
      */
     const SCRIPT_LIST = [
-        'gutenberg-js' => ['js', 'dist/gutenberg.js', ['wp-blocks', 'wp-element', 'lodash'], false],
+        'gutenberg-js' => ['js', 'dist/gutenberg.js', self::GUTENBERG_ASSETS, false],
         'gutenberg-css' => ['css', 'dist/gutenberg.css', null, false],
         'plugin-js' => ['js', 'dist/gumbo-plugin.js', null, true],
         'plugin-css' => ['css', 'dist/gumbo-plugin.css', null, true],
